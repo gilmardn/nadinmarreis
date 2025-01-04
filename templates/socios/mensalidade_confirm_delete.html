@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block conteudo %}
+<div class="container">
+    <div class="row">
+        <div class="centro col-sm-12">
+            <div class="table-principal">
+                <div class="alert titulo" role="alert">
+                    <H3><strong>Confirmar exclusão</strong></h3>
+                </div>
+                <p>Tem certeza de que deseja excluir a mensalidade de {{ object.socio }} - {{ object.ano }}?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit">Excluir</button>
+                    <a href="{% url 'gestao_mensalidades' %}">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

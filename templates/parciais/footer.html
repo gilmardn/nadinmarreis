@@ -1,0 +1,47 @@
+
+<style>
+footer {
+    display: flex; /* Ativa o Flexbox */
+    justify-content: space-between; /* Distribui o espaço entre os elementos */
+    align-items: center; /* Centraliza verticalmente */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 4%;
+    background-color: var(--azul-247a);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    clear: both;
+}
+
+footer p {
+  margin: 0; /* Remove margens padrão dos parágrafos */
+}
+
+footer a {
+  color: #fff; /* Cor do link */
+  text-decoration: none; /* Remove sublinhado do link */
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+</style>
+
+<footer>
+  <p class="text-right">&copy;2025 Desenvolvido por Gdnora em Django</p>
+  {% if request.user.username %}
+    <p class="text-center">Bem-vindo - {{ request.user.first_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+  {% endif %}
+ <p class="float-end" ><a href="#"  style="color: #fff;">Voltar ao topo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>
+</footer>
+  

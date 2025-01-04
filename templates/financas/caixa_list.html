@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<div class="container">
+    <div class="row">
+        <div class="centro col-sm-12">
+            <div class="table-principal">
+                <div class="alert titulo" role="alert">
+                    <h3><strong>Delete Caixa Entry</strong></h3>
+                </div>
+<h1>Caixa</h1>
+<a href="{% url 'caixa-create' %}">Create New Caixa Entry</a>
+<ul>
+    {% for caixa in caixas %}
+    <li>
+        {{ caixa.data }} - {{ caixa.tipo_operacao }} {{ caixa.descricao }} R$  {{ caixa.valor|floatformat:2 }}
+        <a href="{% url 'caixa-update' caixa.pk %}" class="btn btn-warning btn-sm">Editar</a>
+        <a href="{% url 'caixa-delete' caixa.pk %}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+</div>
+</div>
+</div>
+</div>

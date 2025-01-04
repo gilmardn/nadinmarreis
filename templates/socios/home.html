@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Página Inicial{% endblock %}
+
+{% block conteudo %}
+
+
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'img/arena_beach.jpeg' %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'img/arena_beach1.jpeg' %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="#" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Proximo</span>
+  </button>
+</div>
+
+
+
+
+
+
+<!-- Marketing messaging and featurettes
+  ================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing">
+
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+    <div class="col-lg-4">
+      <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
+        role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+      </svg>
+      <h2 class="fw-normal">Cabeçalho</h2>
+      <p>Algum conteúdo representativo de espaço reservado para as três colunas de texto abaixo do carrossel. Esta é a
+        primeira crónica.</p>
+      <p><a class="btn btn-secondary" href="#">Ver detalhes &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
+        role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+      </svg>
+      <h2 class="fw-normal">Cabeçalho</h2>
+      <p>Outro conteúdo interessante de espaço reservado representativo. Desta vez, passamos para a segunda coluna.</p>
+      <p><a class="btn btn-secondary" href="#">Ver detalhes &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
+        role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+      </svg>
+      <h2 class="fw-normal">Cabeçalho</h2>
+      <p>E por último esta, a terceira coluna de conteúdo representativo do espaço reservado.</p>
+      <p><a class="btn btn-secondary" href="#">Ver detalhes &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+  </div><!-- /.row -->
+
+
+  <!-- START THE FEATURETTES -->
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading fw-normal lh-1">Primeiro título do featurette. <span
+          class="text-body-secondary">Isso vai surpreender-te.</span></h2>
+      <p class="lead">Um grande conteúdo de espaço reservado para o primeiro featurette aqui. Imagine aqui alguma prosa
+        emocionante.</p>
+    </div>
+    <div class="col-md-5">
+      <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500"
+        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+        preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="var(--bs-secondary-bg)" /><text x="50%" y="50%"
+          fill="var(--bs-secondary-color)" dy=".3em">500x500</text>
+      </svg>
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7 order-md-2">
+      <h2 class="featurette-heading fw-normal lh-1">Ah, sim, é tão bom. <span class="text-body-secondary">Veja você
+          mesmo.</span></h2>
+      <p class="lead">Outro featurette? Claro. Mais conteúdo de espaço reservado aqui para lhe dar uma ideia de como
+        este layout funcionaria com algum conteúdo real do mundo real instalado.</p>
+    </div>
+    <div class="col-md-5 order-md-1">
+      <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500"
+        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+        preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="var(--bs-secondary-bg)" /><text x="50%" y="50%"
+          fill="var(--bs-secondary-color)" dy=".3em">500x500</text>
+      </svg>
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading fw-normal lh-1">E por último, este. <span
+          class="text-body-secondary">Xeque-mate.</span></h2>
+      <p class="lead">E sim, este é o último bloco de conteúdo representativo de espaço reservado. Mais uma vez, não foi
+        realmente planeado para ser lido, apenas aqui para lhe dar uma melhor visão de como seria com algum conteúdo
+        real. O seu conteúdo.</p>
+    </div>
+    <div class="col-md-5">
+      <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500"
+        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+        preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="var(--bs-secondary-bg)" /><text x="50%" y="50%"
+          fill="var(--bs-secondary-color)" dy=".3em">500x500</text>
+      </svg>
+    </div>
+  </div>
+
+
+  <hr class="featurette-divider">
+
+  <!-- /END THE FEATURETTES -->
+
+</div><!-- /.container -->
+
+
+
+
+{% endblock %}

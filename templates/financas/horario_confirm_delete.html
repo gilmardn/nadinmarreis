@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<div class="container">
+    <div class="row">
+        <div class="centro col-sm-12">
+            <div class="table-principal">
+                <div class="alert titulo" role="alert">
+                    <h3><strong>Exclui horario agendado</strong></h3>
+                </div>
+                <div class="borda-centro">
+                    <br>
+                    <h5><strong>Confirma a exclusão do Agendamento -> &nbsp; {{ object }}</strong></h5>
+                    <br>
+                    <hr>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Confirma Exclusão</button>
+                        <a href="{% url 'gestao_horario' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

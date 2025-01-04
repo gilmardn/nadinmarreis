@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block conteudo %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="centro col-sm-12">
+            <div class="table-principal">
+                <div class="alert titulo" role="alert">
+                    <h3><strong>Lista Caixa      Saldo {{saldo_caixa}}</strong></h3>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo Operação</th>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Conferido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for caixa in caixa_list %}
+                        <tr>
+                            <td>{{ caixa.data }}</td>
+                            <td>{{ caixa.tipo_operacao }}</td>
+                            <td>{{ caixa.descricao }}</td>
+                            <td>R$ {{ caixa.valor }}</td>
+                            <td>{% if caixa.conferido %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No entries available.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+               
+                {% include 'paginador.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

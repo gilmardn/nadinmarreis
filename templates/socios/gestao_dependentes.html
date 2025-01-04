@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="container">
+    <div class="row">
+        <div class="centro col-sm-12">
+            <div class="table-principal">
+                <div class="alert titulo" role="alert">
+                    <H3><strong>Gerenciamento dos Dependentes</strong></h3>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+
+                        <a href="{% url 'cria_dependente' %}" class="btn btn-primary"
+                            style="margin-right: 10px;">Incluir
+                            Dependente</a>
+                        <a href="{% url 'home' %}" class="btn btn-secondary ">Voltar pagina inicial</a>
+                    </div>
+                    <div>
+                        {% include 'parciais/pesquisa.html' %}
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered table-sm">
+                    <thead>
+                        <tr>
+
+                            <th>Nome do Dependente</th>
+                            <th>Nome do Sócio</th>
+                            <th>Parentesco</th>
+                            <th class="text-center">Aniversario</th>
+                            <th class="text-center">CPF</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dependente in dependentes %}
+                        <tr>
+                            <td>{{ dependente.nome }}</td>
+                            <td>{{ dependente.socio.nome }}</td>
+                            <td>{{ dependente.parentesco }}</td>
+                            <td class="text-center">{{ dependente.data_nascimento|date:"d/m/y" }}</td>
+                            <td class="text-center">{{ dependente.cpf }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'edita_dependente' dependente.id %}"
+                                    class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{% url 'exclui_dependente' dependente.id %}"
+                                    class="btn btn-danger btn-sm">Excluir</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">Nenhum dependente encontrado.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% include 'parciais/paginador.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

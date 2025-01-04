@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="container">
+    <div class="row">
+        <div class="centro col-sm-12">
+            <div class="table-principal">
+                <div class="alert titulo" role="alert">
+                    <h3><strong>Gerenciamento do Caixa</strong></h3>
+                </div>
+
+                {% include 'parciais/mensagens.html' %}
+                <hr style="padding: 0; margin: 0;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="{% url 'caixa-create' %}" class="btn btn-primary"
+                            style="margin-right: 10px;">Lançamentos Caixa</a>
+                        <a href="{% url 'home' %}" class="btn btn-secondary ">Voltar pagina inicial</a>
+                    </div>
+                    <div>
+                        <table class="table  table-hover  table-sm">
+                            <thead>
+                                <tr>
+                                    <th style="width: 150px; color: var(--azul-247b);" class="text-left">Saldo a
+                                        consolidar:</th>
+                                    <th style="width: 150px; color: var(--azul-247c);" class="text-end">
+                                        {{saldo_a_consolidar|floatformat:2 }}</th>
+                                </tr>
+                                <tr>
+                                    <th style="width: 150px; color: var(--azul-247b);" class="text-left">Saldo
+                                        consolidado:</th>
+                                    <th style="width: 150px; color: var(--azul-247c);" class="text-end">
+                                        {{saldo_consolidado|floatformat:2 }}</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+
+                        {#{% include 'pesquisa.html' %}#}
+                    </div>
+                </div>
+
+
+
+
+                <table class="table table-striped table-hover table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Data</th>
+                            <th class="text-center">Operação</th>
+                            <th>Descricao</th>
+                            <th class="text-center">Valor</th>
+                            <!-- <th class="text-center">Consoli.</th> -->
+                            <th class="text-center">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for caixa in caixas %}
+                        <tr>
+                            <td class="text-center">{{ caixa.data|date:"d/m/Y" }}</td>
+                            <td class="text-center">{{ caixa.get_tipo_operacao_display }}</td>
+                            <td>{{ caixa.descricao }}</td>
+                            {% if caixa.tipo_operacao == "saida" %}
+                            <td class="text-end">(-{{ caixa.valor|floatformat:2 }})</td>
+                            {% else %}
+                            <td class="text-end">{{ caixa.valor|floatformat:2 }}</td>
+                            {% endif %}
+                            <!--<td class="text-center">{% if caixa.consolidado %}Sim{% else %}Não{% endif %}</td>-->
+                            <td class="text-center">
+                                {% if caixa.consolidado %}
+                                <a href="#" class="btn btn-warning disabled btn-sm" aria-disabled="true" tabindex="-1"
+                                    role="button">Alterar</a>
+                                <a href="#" class="btn btn-danger disabled btn-sm" aria-disabled="true" tabindex="-1"
+                                    role="button">Excluir</a>
+                                {% else %}
+                                <a href="{% url 'caixa-update' caixa.pk %}" class="btn btn-warning btn-sm">Alterar</a>
+                                <a href="{% url 'caixa-delete' caixa.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">Nenhum lançamento encontrado.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock conteudo %}

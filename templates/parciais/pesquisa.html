@@ -1,0 +1,11 @@
+
+
+{#<form method="GET" action="{% url 'lista_mensalidades' %}" style="display: flex; align-items: center;">#}
+
+
+<form method="GET"   style="display: flex; align-items: center;">
+    <input type="text" class="form-control" value="{{ query|default:'' }}" style="width: 150px; margin-right: 5px;  height: 30px"
+        name="q" placeholder="Buscar por nome" >
+    <button type="submit" class="btn btn-success">Pesquisar</button>
+</form>
+
