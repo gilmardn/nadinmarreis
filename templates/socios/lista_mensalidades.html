@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
-
 {% block conteudo %}
 <div class="container">
     <div class="row">
@@ -12,46 +11,42 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <a href="{% url 'home' %}" class="btn btn-secondary ">Voltar pagina inicial</a>
-
                     {% include 'parciais/pesquisa.html' %}
-
                 </div>
-                <table class="table table-striped table-bordered" style="border: solid 0.5px #f08c00;">
-                    <thead>
-                        <tr>
-                            <th>Sócio</th>
-                            <th>Titulo</th>
-                            <th>Mensalidades Pagas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for socio in socios %}
-                        <tr>
-                            <td>{{ socio.nome }}</td>
-                            <td>{{ socio.get_tipo_socio_display }}</td>
-                            <td>
-                                {% if socio.mensalidades.all %}
-                               
+                <div id="tabela">
+                    <table class="table table-striped table-bordered" style="border: solid 0.5px #f08c00;">
+                        <thead>
+                            <tr>
+                                <th>Sócio</th>
+                                <th>Titulo</th>
+                                <th>Mensalidades Pagas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for socio in socios %}
+                            <tr>
+                                <td>{{ socio.nome }}</td>
+                                <td>{{ socio.get_tipo_socio_display }}</td>
+                                <td>
+                                    {% if socio.mensalidades.all %}
                                     {% for mensalidade in socio.mensalidades.all %}
                                     <li>
                                         ( {{ mensalidade.ano }} ) - {{ mensalidade.get_meses_pagos|join:" - " }}
-
                                     </li>
                                     {% endfor %}
-                             
-                                {% else %}
-                                <li>
-                                <em>não existe mensalidades a ser paga</em>
-                                {% endif %}
-                                </li>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                                    {% else %}
+                                    <li>
+                                        <em>não existe mensalidades a ser paga</em>
+                                        {% endif %}
+                                    </li>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 {% include 'parciais/paginador.html' %}
             </div>
-            {# <a href="{% url 'mensalidade_create' %}">Adicionar Mensalidade</a> #}
         </div>
     </div>
 </div>

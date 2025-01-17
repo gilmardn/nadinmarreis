@@ -29,6 +29,7 @@ class Caixa(models.Model):
     data = models.DateField()
     tipo_operacao = models.CharField(verbose_name='Tipo do operação', max_length=15, choices=TIPOS_OPERACAO)
     categoria = models.ForeignKey(Categoria, verbose_name='Categoria', on_delete=models.CASCADE)
+    cliente_fornecedor = models.CharField(verbose_name='Cliente/Fornecedor', max_length=150, blank=True, default='')
     descricao = models.CharField(max_length=150, blank=True)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     consolidado = models.BooleanField(default=False)
@@ -41,6 +42,9 @@ class Caixa(models.Model):
 
     def __str__(self):
         return f"de: ##<{self.tipo_operacao}>####<{self.valor}>####<{self.data.strftime('%d/%m/%Y')}>## "
+    
+    def id_formatado(self):
+        return f"{self.id:05}"  # Formata o código com zeros à esquerda
 
     def Xfdata(self):
         return f"{self.data.strftime('%d/%m/%Y')}"
@@ -49,12 +53,14 @@ class Caixa(models.Model):
     def saldo_consolidado(self):
         entrada = Caixa.objects.filter(Q(tipo_operacao='entrada') & Q(consolidado=True)).aggregate(total=models.Sum('valor'))['total'] or 0
         saida = Caixa.objects.filter(Q(tipo_operacao='saida') & Q(consolidado=True)).aggregate(total=models.Sum('valor'))['total'] or 0
-        return entrada - saida
+        z = entrada - saida
+        return f"{z:,.2f}"
     @property
     def saldo_a_consolidar(self):
         entrada = Caixa.objects.filter(Q(tipo_operacao='entrada') & Q(consolidado=False)).aggregate(total=models.Sum('valor'))['total'] or 0
         saida = Caixa.objects.filter(Q(tipo_operacao='saida') & Q(consolidado=False)).aggregate(total=models.Sum('valor'))['total'] or 0
-        return entrada - saida
+        z = entrada - saida
+        return f"{z:,.2f}"
     
 #==========================  Finanças ============================================
 class Quadra(models.Model):
@@ -71,9 +77,9 @@ class Horario(models.Model):
     hora_inicio = models.TimeField()
     hora_fim = models.TimeField()
     def __str__(self):
-        return f" <<< {self.quadra.nome} >>>  Dia {self.data.strftime("%d/%m/%y")}  das  {self.hora_inicio.strftime("%H:%M")} as  {self.hora_fim.strftime("%H:%M")} horas"
+        return f" <<< {self.quadra.nome} >>>  Dia {self.data.strftime('%d/%m/%y')}  das  {self.hora_inicio.strftime('%H:%M')} as  {self.hora_fim.strftime('%H:%M')} horas"
     def Xfdata(self):
-        return f'{self.data.strftime("%d/%m/%Y")}'
+        return f"{self.data.strftime('%d/%m/%Y')}"
     def Xfhora_inicio(self):
         return f'{self.hora_inicio.strftime("%H:%M")}'
     def Xfhora_fim(self):

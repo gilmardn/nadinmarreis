@@ -33,10 +33,9 @@ class HorarioForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
 
-        # Adiciona o atributo autocomplete="off" ao widget do campo
-        if 'autocomplete' not in field.widget.attrs:
-            field.widget.attrs['autocomplete'] = 'off'
+       
 
 #---------------------------------------------------------------------------------------
 class HorarioFormEdit(forms.ModelForm):
@@ -55,6 +54,7 @@ class HorarioFormEdit(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
 
 #---------------------------------------------------------------------------------------
 class CaixaForm(forms.ModelForm):
@@ -62,7 +62,7 @@ class CaixaForm(forms.ModelForm):
    
     class Meta:
         model = Caixa
-        fields = ['tipo_operacao', 'categoria', 'data', 'descricao', 'valor']
+        fields = ['tipo_operacao', 'categoria', 'cliente_fornecedor', 'data', 'descricao', 'valor']
 
     def __init__(self, *args, **kwargs):
         super(CaixaForm, self).__init__(*args, **kwargs)
@@ -73,6 +73,7 @@ class CaixaForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
 
         if self.instance and self.instance.consolidado:
             for field in self.fields:
@@ -83,7 +84,7 @@ class CaixaFormEdit(forms.ModelForm):
    #data = forms.DateField(widget=DatePickerInput)
     class Meta:
         model = Caixa
-        fields = ['tipo_operacao', 'categoria', 'data', 'descricao', 'valor']
+        fields = ['tipo_operacao', 'categoria', 'cliente_fornecedor', 'data', 'descricao', 'valor']
 
     def __init__(self, *args, **kwargs):
         super(CaixaFormEdit, self).__init__(*args, **kwargs)
@@ -93,6 +94,7 @@ class CaixaFormEdit(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
 
         if self.instance and self.instance.consolidado:
             for field in self.fields:

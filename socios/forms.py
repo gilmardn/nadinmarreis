@@ -37,16 +37,12 @@ class SocioForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
-
-            # Adiciona o atributo autocomplete="off" ao widget do campo
-            if 'autocomplete' not in field.widget.attrs:
                 field.widget.attrs['autocomplete'] = 'off'
+
+          
 
 #===============================================================================
 class SocioFormEdit(forms.ModelForm):
-   
-    #data_nascimento = forms.DateField(widget=DatePickerInput)
-    #data_admisao = forms.DateField(widget=DatePickerInput)
 
     class Meta:
         model = Socio
@@ -61,12 +57,66 @@ class SocioFormEdit(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
 
             if field.widget.__class__ in [forms.Textarea]:
                 field.widget.attrs['rows'] = '4'
 
-                        # Adiciona o atributo autocomplete="off" ao widget do campo
-            if 'autocomplete' not in field.widget.attrs:
+        
+
+#===============================================================================
+class DependenteForm(forms.ModelForm):
+    data_nascimento = forms.DateField(widget=DatePickerInput)
+    class Meta:
+        model = Dependente
+        fields = ['socio', 'nome', 'parentesco', 'data_nascimento', 'cpf', 'rg', 'foto']  # Campos que serão exibidos no formulário
+
+    def __init__(self, *args, **kwargs): # Adiciona 
+        super().__init__(*args, **kwargs)  
+
+        for x, field in self.fields.items():   
+            if field.widget.__class__ in [forms.CheckboxInput, forms.RadioSelect]:
+                field.widget.attrs['class'] = 'form-check-input'
+            else:
+                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
+
+
+
+#===============================================================================
+class DependenteForm(forms.ModelForm):
+    data_nascimento = forms.DateField(widget=DatePickerInput)
+    class Meta:
+        model = Dependente
+        fields = ['socio', 'nome', 'parentesco', 'data_nascimento', 'cpf', 'rg', 'foto']  # Campos que serão exibidos no formulário
+
+    def __init__(self, *args, **kwargs): # Adiciona 
+        super().__init__(*args, **kwargs)  
+
+        for x, field in self.fields.items():   
+            if field.widget.__class__ in [forms.CheckboxInput, forms.RadioSelect]:
+                field.widget.attrs['class'] = 'form-check-input'
+            else:
+                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
+
+
+
+#===============================================================================
+class DependenteForm(forms.ModelForm):
+    data_nascimento = forms.DateField(widget=DatePickerInput)
+    class Meta:
+        model = Dependente
+        fields = ['socio', 'nome', 'parentesco', 'data_nascimento', 'cpf', 'rg', 'foto']  # Campos que serão exibidos no formulário
+
+    def __init__(self, *args, **kwargs): # Adiciona 
+        super().__init__(*args, **kwargs)  
+
+        for x, field in self.fields.items():   
+            if field.widget.__class__ in [forms.CheckboxInput, forms.RadioSelect]:
+                field.widget.attrs['class'] = 'form-check-input'
+            else:
+                field.widget.attrs['class'] = 'form-control'
                 field.widget.attrs['autocomplete'] = 'off'
 
 #===============================================================================
@@ -84,62 +134,7 @@ class DependenteForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
-
-                    # Adiciona o atributo autocomplete="off" ao widget do campo
-            if 'autocomplete' not in field.widget.attrs:
                 field.widget.attrs['autocomplete'] = 'off'
-
-#===============================================================================
-class DependenteForm(forms.ModelForm):
-    data_nascimento = forms.DateField(widget=DatePickerInput)
-    class Meta:
-        model = Dependente
-        fields = ['socio', 'nome', 'parentesco', 'data_nascimento', 'cpf', 'rg', 'foto']  # Campos que serão exibidos no formulário
-
-    def __init__(self, *args, **kwargs): # Adiciona 
-        super().__init__(*args, **kwargs)  
-
-        for x, field in self.fields.items():   
-            if field.widget.__class__ in [forms.CheckboxInput, forms.RadioSelect]:
-                field.widget.attrs['class'] = 'form-check-input'
-            else:
-                field.widget.attrs['class'] = 'form-control'
-
-                        # Adiciona o atributo autocomplete="off" ao widget do campo
-            if 'autocomplete' not in field.widget.attrs:
-                field.widget.attrs['autocomplete'] = 'off'
-
-#===============================================================================
-class DependenteForm(forms.ModelForm):
-    data_nascimento = forms.DateField(widget=DatePickerInput)
-    class Meta:
-        model = Dependente
-        fields = ['socio', 'nome', 'parentesco', 'data_nascimento', 'cpf', 'rg', 'foto']  # Campos que serão exibidos no formulário
-
-    def __init__(self, *args, **kwargs): # Adiciona 
-        super().__init__(*args, **kwargs)  
-
-        for x, field in self.fields.items():   
-            if field.widget.__class__ in [forms.CheckboxInput, forms.RadioSelect]:
-                field.widget.attrs['class'] = 'form-check-input'
-            else:
-                field.widget.attrs['class'] = 'form-control'
-
-#===============================================================================
-class DependenteForm(forms.ModelForm):
-    data_nascimento = forms.DateField(widget=DatePickerInput)
-    class Meta:
-        model = Dependente
-        fields = ['socio', 'nome', 'parentesco', 'data_nascimento', 'cpf', 'rg', 'foto']  # Campos que serão exibidos no formulário
-
-    def __init__(self, *args, **kwargs): # Adiciona 
-        super().__init__(*args, **kwargs)  
-
-        for x, field in self.fields.items():   
-            if field.widget.__class__ in [forms.CheckboxInput, forms.RadioSelect]:
-                field.widget.attrs['class'] = 'form-check-input'
-            else:
-                field.widget.attrs['class'] = 'form-control'
 
 #===============================================================================
 class DependenteFormEdit(forms.ModelForm):
@@ -156,6 +151,7 @@ class DependenteFormEdit(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
 
 
 #===============================================================================
@@ -182,6 +178,7 @@ class MensalidadeForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
 
 #===============================================================================      
         

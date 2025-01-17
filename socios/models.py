@@ -9,7 +9,7 @@ from django.db.models import Q
 class Socio(models.Model):
     TIPOS_SOCIO = [('remido', 'Remido'), ('patrimonial', 'Patrimonial'), ('benemerito', 'Benemérito'),('contribuinte', 'Contribuinte'),]
     nome = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100, unique=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
     telefone = models.CharField(max_length=15, blank=True, null=True)
     data_nascimento = models.DateField(blank=True, null=True)
     data_admisao = models.DateField(blank=True, null=True)
@@ -19,7 +19,7 @@ class Socio(models.Model):
     cep = models.CharField(verbose_name="CEP",max_length=9, blank=True, null=True)
     ativo = models.BooleanField(default=True)
     foto = models.ImageField(upload_to='fotos_socios/', blank=True, null=True)
-    cpf = models.CharField(verbose_name="CPF", max_length=14, unique=True,blank=True, null=True)
+    cpf = models.CharField(verbose_name="CPF", max_length=14, unique=True, blank=True, null=True)
     rg = models.CharField(verbose_name="RG",max_length=20, blank=True, null=True)
     tipo_socio = models.CharField(max_length=15, choices=TIPOS_SOCIO)
     

@@ -10,55 +10,50 @@
                 <hr>
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-
-
                         <a href="{% url 'home' %}" class="btn btn-secondary ">Voltar pagina inicial</a>
-
                     </div>
                     <div>
                         {% include 'parciais/pesquisa.html' %}
                     </div>
-
                 </div>
-                <table class="table table-striped table-hover table-bordered table-sm">
-
-
-                    <thead>
-                        <tr>
-                            <th class="w-18">Sócio</th>
-                            <th class="text-center w-10">Titulo</th>
-                            <th class="w-54">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ano &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Meses Pagos</th>
-                            <th class="text-center w-18">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for mensalidade in mensalidades %}
-
-                        <tr>
-                            <td>{{ mensalidade.socio.nome }}</td>
-                            <td class="text-center">{{ mensalidade.socio.get_tipo_socio_display }}</td>
-                            <td>
-                                <ul>
-                                <li>
-                                    ( {{ mensalidade.ano }} ) - {{ mensalidade.get_meses_pagos|join:" - " }}
-
-                                </li>
-                            </ul>
-                            </td>
-                            <td class="text-center">
-                                <a href="{% url 'mensalidade_update' mensalidade.pk %}" class="btn btn-dark ">Atualiza Mensalidade</a>
-                                {#<a href="{% url 'mensalidade_delete' mensalidade.pk %}" class="btn btn-danger btn-sm">Excluir</a>#}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div id="tabela">
+                    <table class="table table-striped table-hover table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th class="w-18">Sócio</th>
+                                <th class="text-center w-10">Titulo</th>
+                                <th class="w-54">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ano
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Meses
+                                    Pagos</th>
+                                <th class="text-center w-18">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mensalidade in mensalidades %}
+                            <tr>
+                                <td>{{ mensalidade.socio.nome }}</td>
+                                <td class="text-center">{{ mensalidade.socio.get_tipo_socio_display }}</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            ( {{ mensalidade.ano }} ) - {{ mensalidade.get_meses_pagos|join:" - " }}
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{% url 'mensalidade_update' mensalidade.pk %}"
+                                        class="btn btn-dark ">Atualiza Mensalidade</a>
+                                    {#<a href="{% url 'mensalidade_delete' mensalidade.pk %}"
+                                        class="btn btn-danger btn-sm">Excluir</a>#}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 {% include 'parciais/paginador.html' %}
             </div>
         </div>
     </div>
 </div>
-
-
-
 {% endblock conteudo %}
