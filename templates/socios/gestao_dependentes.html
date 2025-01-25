@@ -3,6 +3,10 @@
 <div class="container">
     <div class="row">
         <div class="centro col-sm-12">
+            <div class="d-flex justify-content-end" style="margin-top: 5px;">
+                <a href="{% url 'home' %}" class="btn-close"></a>
+            </div>
+
             <div class="table-principal">
                 <div class="alert titulo" role="alert">
                     <H3><strong>Gerenciamento dos Dependentes</strong></h3>
@@ -24,8 +28,8 @@
                 <table class="table table-striped table-hover table-bordered table-sm">
                     <thead>
                         <tr>
-                            <th>Nome do Dependente</th>
                             <th>Nome do Sócio</th>
+                            <th>Nome do Dependente</th>
                             <th>Parentesco</th>
                             <th class="text-center">Aniversario</th>
                             <th class="text-center">CPF</th>
@@ -35,9 +39,9 @@
                     <tbody>
                         {% for dependente in dependentes %}
                         <tr>
-                            <td>{{ dependente.nome }}</td>
                             <td>{{ dependente.socio.nome }}</td>
-                            <td>{{ dependente.parentesco }}</td>
+                            <td>{{ dependente.nome }}</td>
+                            <td>{{ dependente.get_parentesco_display }}</td>
                             <td class="text-center">{{ dependente.data_nascimento|date:"d/m/y" }}</td>
                             <td class="text-center">{{ dependente.cpf }}</td>
                             <td class="text-center">

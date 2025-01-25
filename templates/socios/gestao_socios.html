@@ -3,6 +3,10 @@
 <div class="container">
     <div class="row">
         <div class="centro col-sm-12">
+            <div class="d-flex justify-content-end" style="margin-top: 5px;">
+                <a href="{% url 'home' %}" class="btn-close"></a>
+            </div>
+
             <div class="table-principal">
                 <div class="alert titulo" role="alert">
                     <H3><strong>Gerenciamento do Quadro Social</strong></h3>
@@ -28,7 +32,9 @@
                             <th>Telefone</th>
                             <th>Cidade</th>
                             <th class="text-center">Tipo</th>
-                            <th class="text-center">Ações</th>
+                            <th class="text-center">Ação</th>
+                            <th class="text-center">Ativo</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -39,10 +45,15 @@
                             <td>{{ socio.telefone }}</td>
                             <td>{{ socio.cidade }}</td>
                             <td class="text-center">{{ socio.get_tipo_socio_display }}</td>
-                            <td class="text-end">
+
+                            <td class="text-center">
                                 <a href="{% url 'edita_socio' socio.id %}" class="btn btn-warning btn-sm">Alterar</a>
+                                <!--
                                 <a href="{% url 'exclui_socio' socio.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                                -->
                             </td>
+                            <td class="text-center">{% if socio.ativo %}<i class="material-icons" style="font-size: 15px;">check</i>{% endif %}</td>
+
                         </tr>
                         {% empty %}
                         <tr>

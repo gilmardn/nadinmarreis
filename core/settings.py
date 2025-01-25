@@ -10,7 +10,8 @@ DEBUG = True  # Em produção  =  True
 
 ALLOWED_HOSTS = ['*',]
 
-
+# minhas variaveis
+LINHAS_POR_PAGINA = 14
 
 
 INSTALLED_APPS = [
@@ -25,6 +26,7 @@ INSTALLED_APPS = [
     'socios',
     'financas',
     'usuarios',
+    'relatorios',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

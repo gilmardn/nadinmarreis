@@ -2,9 +2,17 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block conteudo %}
+
+
+
+
 <div class="container">
   <div class="row">
     <div class="centro col-sm-12">
+      <div class="d-flex justify-content-end" style="margin-top: 5px;">
+        <a href="{% url 'home' %}" class="btn-close"></a>
+    </div>
+
       <div class="table-principal">
         <div class="alert titulo" role="alert">
           <H3><strong>Rotinas Periodicas</strong></h3>
@@ -15,10 +23,12 @@
         <!-- ================== CRIA REGISTROS DE MENSALIDADES PARA SOCIOS ================================== -->
         <div class="borda-centro">
           <strong class="texto-topo-rotina-periodica">CRIA REGISTROS DE MENSALIDADES PARA SOCIOS.</strong>
-          <p class="texto-topo-rotina-periodica"> Executar esta rotina no inicio do ano, ou sempre que um associado novo
+          <p class="texto-topo-rotina-periodica"> Executar esta rotina no inicio do ano, ou sempre que um associado
+            novo
             for cadastrado.</p>
           <br>
-          <form method="post" action="{% url 'rotina_periodica' %}">
+          <form method="post" action="{% url 'rotina_periodica' %}"
+            onsubmit="return confirm('Tem certeza que deseja executar esta rotina?');">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Executar Rotina</button>
@@ -30,7 +40,8 @@
           <strong class="texto-topo-rotina-periodica"> CONSOLIDA LANÇAMENTOS DE CAIXA.</strong>
           <p class="texto-topo-rotina-periodica"> Depois de executada esta rotina os lançamentos não poderão mais ser
             alterados ou excluidos. </p>
-          <form method="post" action="{% url 'consolidar_registros' %}">
+          <form method="post" action="{% url 'consolidar_registros' %}"
+            onsubmit="return confirm('Tem certeza que deseja consolidar os lançamentos? Esta ação não pode ser desfeita.');">
             {% csrf_token %}
             {{ form1.as_p }}
             <br>
@@ -41,4 +52,15 @@
     </div>
   </div>
 </div>
+<script>
+  // Função de confirmação simples
+  function confirmarAcao(mensagem) {
+    if (confirm(mensagem)) {
+      alert("Ação executada com sucesso!");
+      // Aqui você pode adicionar a lógica para executar a ação desejada
+    } else {
+      alert("Ação cancelada.");
+    }
+  }
+</script>
 {% endblock %}

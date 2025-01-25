@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block topo %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>   
+{% endblock %} 
+
+{% block conteudo %}
+<div class="container">
+    <div class="row">
+        <div class="centro col-sm-12">
+            <div class="d-flex justify-content-end" style="margin-top: 5px;">
+                <a href="{% url 'home' %}" class="btn-close"></a>
+            </div>
+            
+            <div class="table-principal">
+                
+                <div class="alert titulo" role="alert">
+                    <h3><strong>Grafico de mensalidades pagas.</strong></h3>
+                </div>
+                {{ anos|json_script:"anos-data" }}
+                {{ total_true|json_script:"total-true-data" }}
+                {{ total_false|json_script:"total-false-data" }}
+                <canvas id="myChart" width="400" height="200"></canvas>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var anos = JSON.parse('{{ anos|safe }}');
+    var totalTrue = JSON.parse('{{ total_true|safe }}');
+    var totalFalse = JSON.parse('{{ total_false|safe }}');
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: anos,
+            datasets: [{
+                label: 'Meses Pagos',
+                data: totalTrue,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Meses Não Pagos',
+                data: totalFalse,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

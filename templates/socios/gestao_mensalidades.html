@@ -3,6 +3,10 @@
 <div class="container">
     <div class="row">
         <div class="centro col-sm-12">
+            <div class="d-flex justify-content-end" style="margin-top: 5px;">
+                <a href="{% url 'home' %}" class="btn-close"></a>
+            </div>
+
             <div class="table-principal">
                 <div class="alert titulo" role="alert">
                     <H3><strong>Gerenciamento de pagamento de mensalidades</strong></h3>
@@ -43,8 +47,7 @@
                                 <td class="text-center">
                                     <a href="{% url 'mensalidade_update' mensalidade.pk %}"
                                         class="btn btn-dark ">Atualiza Mensalidade</a>
-                                    {#<a href="{% url 'mensalidade_delete' mensalidade.pk %}"
-                                        class="btn btn-danger btn-sm">Excluir</a>#}
+                                   
                                 </td>
                             </tr>
                             {% endfor %}

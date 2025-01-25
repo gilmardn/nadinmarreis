@@ -1,8 +1,8 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
-  box-sizing: 0;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: 0px;
   height: 100%;
 }
 
@@ -42,13 +42,34 @@ a {
   padding: 1px 5px 1px 5px !important;
 }
 
+.container {
+  margin-top: 2.5%;
+}
+
+.table-principal {
+  height: auto;
+  margin-top: 0%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 4%;
+  border: 1px solid var(--bordas);
+  border-radius: 8px;
+  padding: 20px 10px 20px 10px;
+}
+
+.centro {
+  background: var(--cor-fundo);
+  height: auto;
+  border: 1px solid var(--bordas);
+}
+
+
 table,
 tabela {
   height: 25px !important;
   margin: 0px !important;
   border: solid 0.5px var(--bordas) !important;
-  border-radius: 8px !important;
-  padding: 0px !important;
+  padding: 10px !important;
 }
 
 div#tabela {
@@ -131,10 +152,13 @@ div#tabela {
 
 .img-fundo {
   background-image: url("../img/quadra11.jpeg");
-  background-repeat: no-repeat;
-  background-size: cover; /* Cobrir toda a área do contêiner */
-  opacity: 0.9;
-  min-height: 100vh; /* Altura mínima igual à altura da viewport */
+  background-size: cover; /* Faz a imagem cobrir toda a área */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Evita repetição da imagem */
+  background-attachment: fixed; /* Mantém a imagem fixa ao rolar a página */
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Garante que o body ocupe toda a altura da tela */
 }
 
 .titulo {
@@ -144,23 +168,6 @@ div#tabela {
   color: var(--letra-titulo);
   text-align: center;
   padding: 8px;
-}
-
-.centro {
-  background: var(--cor-fundo);
-  height: auto;
-  border: 1px solid var(--bordas);
-}
-
-.table-principal {
-  height: auto;
-  margin-top: 7%;
-  margin-left: 1%;
-  margin-right: 1%;
-  margin-bottom: 4%;
-  border: 1px solid var(--bordas);
-  border-radius: 8px;
-  padding: 20px 10px 20px 10px;
 }
 
 .navbar {
@@ -210,74 +217,3 @@ div#tabela {
   font-size: 20px;
 }
 
-/*
-
-  --cor-nav: #7fe5c2;
-  --azul-logo: #3f48cc;
-  --lado-esquerdo: #e9eef2;
-  --lado-esquerdo1: #e3f0e9;
-  --lado-esquerdo2: #d3dce6;
-  --lado-direito: #f8f8f8;
-
-.table {
-  --bs-table-color: var(--letra-table);
-  --bs-table-bg: var(--fundo-table);
-}
-
-  .img-direita {
-    margin-top: 60px;
-  }
-}
-
-
-.fa-edit {
-  font-size: 15px;
-}
-
-.fa-trash {
-  font-size: 15px;
-}
-
-
-.exclusao {
-  border: 1px solid var(--bordas);
-  border-radius: 8px;
-  padding: 10px;
-}
-
-.direita {
-  background: var(--lado-direito);
-  height: auto;
-  min-height: 95.4vh;
-  border: 1px solid var(--bordas);
-}
-
-.home-esquerda {
-  padding: 10px 40px 10px 40px;
-  height: auto;
-  border: 1px solid var(--bordas);
-}
-
-
-.table-esquerda {
-  height: auto;
-  margin-top: 100px;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-bottom: 4%;
-  border: 1px solid var(--bordas);
-  border-radius: 8px;
-  padding: 20px 5px 5px 5px;
-}
-
-.home-direita {
-  height: auto;
-  margin-top: 100px;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 4%;
-  border: 1px solid var(--bordas);
-  border-radius: 8px;
-  padding: 20px;
-}
-*/

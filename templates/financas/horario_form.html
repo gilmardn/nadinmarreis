@@ -5,6 +5,10 @@
 <div class="container">
     <div class="row">
         <div class="centro col-sm-12">
+            <div class="d-flex justify-content-end" style="margin-top: 5px;">
+                <a href="{% url 'home' %}" class="btn-close"></a>
+            </div>
+
             <div class="table-principal">
                 <div class="alert titulo" role="alert">
                     <h3><strong>{% if object %}Alterar horario de treino{% else %}Agendar novo horario de treino {% endif %} </strong></h3>

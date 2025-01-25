@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
-
 {% block conteudo %}
 <div class="container">
     <div class="row">
         <div class="centro col-sm-12">
+            <div class="d-flex justify-content-end" style="margin-top: 5px;">
+                <a href="{% url 'home' %}" class="btn-close"></a>
+            </div>
+
             <div class="table-principal">
                 <div class="alert titulo" role="alert">
                     <H3><strong>Alterar informações do Sócio:</strong></h3>
@@ -14,12 +17,11 @@
                     <form method="post" enctype="multipart/form-data">{% csrf_token %}
                         <div class="row">
                             <div class="col-sm-6">
-                                {# {{ form.as_p }} #}
                                 {{ form.nome|as_crispy_field }}
                                 {{ form.endereco|as_crispy_field }}
                                 {{ form.cidade|as_crispy_field }}
-                                {{ form.estado|as_crispy_field }}
                                 {{ form.cep|as_crispy_field }}
+                                {{ form.observacao|as_crispy_field }}
                                 {{ form.foto|as_crispy_field }}
                                 <div>
                                     <button type="submit" class="btn btn-success">Salvar</button>
@@ -31,10 +33,38 @@
                                 {{ form.telefone|as_crispy_field }}
                                 {{ form.cpf|as_crispy_field }}
                                 {{ form.rg|as_crispy_field }}
-                                {{ form.data_nascimento|as_crispy_field }}
-                                {{ form.data_admisao|as_crispy_field }}
-                                {{ form.tipo_socio|as_crispy_field }}
-                                {{ form.ativo|as_crispy_field }}
+
+                                <div class="row">
+                                    <div class="col-sm-5" style="margin: 0px; padding: 0px; ">
+                                        {{ form.data_nascimento|as_crispy_field }}
+                                    </div>
+                                    <div class="col-sm-1">
+                                    </div>
+                                    <div class="col-sm-6" style="margin: 0px; padding: 0px; ">
+                                        {{ form.data_admisao|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-7" style="margin: 0px; padding: 0px; ">
+                                        {{ form.tipo_socio|as_crispy_field }}
+                                    </div>
+                                    <div class="col-sm-1">
+                                    </div>
+                                    <div class="col-sm-4" style="margin: 0px; padding: 0px; ">
+                                        {{ form.num_titulo|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-7" style="margin: 0px; padding: 0px; ">
+                                        {{ form.esporte|as_crispy_field }}
+                                    </div>
+                                    <div class="col-sm-1">
+                                    </div>
+                                    <div class="col-sm-4" style="margin: 0px; padding-top: 15px;">
+                                        <br>
+                                        {{ form.ativo|as_crispy_field }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>

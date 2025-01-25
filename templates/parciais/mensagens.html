@@ -1,17 +1,15 @@
-
-
-
-
 <!-- Exibição das mensagens -->
 
-{% if messages %}
-  {% for message in messages %}
+    {% if messages %}
+    {% for message in messages %}
     <div id="erro" class="alert {{ message.tags }} alert-dismissible fade show text-center" role="alert">
-      <strong >{{ message }}</strong>
-      <button type="button"  class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="$('#erro').hide()"></button>
+      <strong>{{ message }}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        onclick="$('#erro').hide()"></button>
     </div>
-  {% endfor %}
-{% endif %}
+    {% endfor %}
+    {% endif %}
+
 
 <!-- Função que apaga a mensagem da tela 2,5 segunto depois -->
 <script>

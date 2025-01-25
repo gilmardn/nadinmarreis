@@ -1,13 +1,17 @@
-
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
 {% block conteudo %}
 {% block topo %}
 <link href="{% static 'css/login.css' %}" rel="stylesheet" />
+
 {% endblock %}
 <div class="container" style="width: 450px;">
-    <div class="alert titulo" role="alert">
+        <div class="row justify-content-end">
+            <a href="{% url 'home' %}" class="btn-close position-absolute top-0 end-0 mt-2 me-2" style="width: 3px; height: 3px;"></a>
+        </div>
+        <br>
+        <div class="alert titulo" role="alert" style="padding-top: 0px;">
         <h3><strong> Cadastro de Usuario </strong></h3>
     </div>
     <div class="borda-centro">

@@ -2,11 +2,7 @@
 
 
 from django.urls import path
-from .views import ( MensalidadeUpdateView, MensalidadeDeleteView,
-    #MensalidadeListView,
-    #MensalidadeCreateView,
-)
-
+from .views import ( MensalidadeUpdateView, MensalidadeDeleteView)
 from .import views
 
 urlpatterns = [
@@ -31,17 +27,10 @@ urlpatterns += [
     path('dependentes/editar/<int:dependente_id>/', views.edita_dependente, name='edita_dependente'),
     path('dependentes/excluir/<int:dependente_id>/', views.exclui_dependente, name='exclui_dependente'),
 ]
+
 urlpatterns += [
-    #path('<int:socio_id>/mensalidades/', views.lista_mensalidades, name='lista_mensalidades'),
-    #path('<int:socio_id>/mensalidades/incluir/', views.cria_pagamento, name='cria_pagamento'),
-    #path('mensalidades/editar/<int:pagamento_id>/', views.edita_pagamento, name='edita_pagamento'),
-    #path('confirmar_pagamento/<int:mensalidade_id>/<str:meses>/', views.confirmar_pagamento, name='confirmar_pagamento'),
-]
-urlpatterns += [
-    #path('list/', MensalidadeListView.as_view(), name='mensalidade_list'),
     path('list/',views.lista_mensalidades, name='lista_mensalidades'),
     path('gestao_mensalidades/',views.gestao_mensalidades, name='gestao_mensalidades'),
-    #path('create/', MensalidadeCreateView.as_view(), name='mensalidade_create'),
     path('update/<int:pk>/', MensalidadeUpdateView.as_view(), name='mensalidade_update'),
     path('delete/<int:pk>/', MensalidadeDeleteView.as_view(), name='mensalidade_delete'),
 

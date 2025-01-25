@@ -105,3 +105,4 @@ def popular_categorias(request):
             
 
 
+#usuarios/popular_categorias
