@@ -1,6 +1,5 @@
 from django import forms
-from .models import Quadra, Horario, Caixa
-from datetime import datetime
+from .models import Quadra, Horario, Caixa, Parceiro
 from django.forms.widgets import DateInput, TimeInput
 
 #-----------------------------------------------------------------------------
@@ -10,6 +9,7 @@ class DatePickerInput(DateInput):
 #-----------------------------------------------------------------------------
 class TimePickerInput(TimeInput):
     input_type = 'time'  # Define o tipo de input como 'time'
+
 #---------------------------------------------------------------------------------------
 class QuadraForm(forms.ModelForm):
     class Meta:
@@ -34,8 +34,6 @@ class HorarioForm(forms.ModelForm):
             else:
                 field.widget.attrs['class'] = 'form-control'
                 field.widget.attrs['autocomplete'] = 'off'
-
-       
 
 #---------------------------------------------------------------------------------------
 class HorarioFormEdit(forms.ModelForm):
@@ -62,11 +60,10 @@ class CaixaForm(forms.ModelForm):
    
     class Meta:
         model = Caixa
-        fields = ['tipo_operacao', 'categoria', 'cliente_fornecedor', 'data', 'descricao', 'valor']
+        fields = ['tipo_operacao', 'categoria', 'parceiro', 'data', 'descricao', 'valor']
 
     def __init__(self, *args, **kwargs):
         super(CaixaForm, self).__init__(*args, **kwargs)
-
 
         for x, field in self.fields.items():   
             if field.widget.__class__ in [forms.CheckboxInput, forms.RadioSelect]:
@@ -84,7 +81,7 @@ class CaixaFormEdit(forms.ModelForm):
    #data = forms.DateField(widget=DatePickerInput)
     class Meta:
         model = Caixa
-        fields = ['tipo_operacao', 'categoria', 'cliente_fornecedor', 'data', 'descricao', 'valor']
+        fields = ['tipo_operacao', 'categoria', 'parceiro', 'data', 'descricao', 'valor']
 
     def __init__(self, *args, **kwargs):
         super(CaixaFormEdit, self).__init__(*args, **kwargs)
@@ -99,3 +96,27 @@ class CaixaFormEdit(forms.ModelForm):
         if self.instance and self.instance.consolidado:
             for field in self.fields:
                 self.fields[field].disabled = True
+
+#---------------------------------------------------------------------------------------
+class ParceiroForm(forms.ModelForm):
+    class Meta:
+        model = Parceiro
+        fields = ['nome','email', 'telefone', 'cidade', 'endereco', 'cep', 'cpf_cnpj', 'ie', 'ativo']
+
+        widgets = {
+            'cep': forms.TextInput(attrs={'data-mask': '00.000-000'}),
+            'ie': forms.TextInput(attrs={'data-mask': '000/000000-0'}),
+            'cpf_cnpj': forms.TextInput(attrs={'data-mask': '00.000.000/0000-00'}),
+            'telefone': forms.TextInput(attrs={'data-mask': '(00) 00000-0000'}),
+            }
+
+    def __init__(self, *args, **kwargs): # Adiciona 
+        super().__init__(*args, **kwargs)  
+
+        for x, field in self.fields.items():   
+            if field.widget.__class__ in [forms.CheckboxInput, forms.RadioSelect]:
+                field.widget.attrs['class'] = 'form-check-input'
+            else:
+                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['autocomplete'] = 'off'
+

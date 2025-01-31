@@ -7,7 +7,7 @@ body {
 }
 
 :root {
-  --branco: #FFFFFF;
+  --branco: #ffffff;
   --laranja-aws: #e67435;
   --vermelho-247: #ef3f44;
   --laranja-247a: #f83d02;
@@ -43,7 +43,29 @@ a {
 }
 
 .container {
-  margin-top: 2.5%;
+  margin-top: 2.9%;
+}
+
+.row {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-fundo {
+  background-image: url('../img/quadra_2_casa.jpeg');
+  background-size: cover; /* Faz a imagem cobrir toda a área */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Evita repetição da imagem */
+  background-attachment: fixed; /* Mantém a imagem fixa ao rolar a página */
+  margin: 0;
+  padding: 0;
+  opacity: 0.9;
+  height: 100vh; /* Garante que o body ocupe toda a altura da tela */
+}
+
+.img-logo {
+  width: 70px;
+  height: 35px;
 }
 
 .table-principal {
@@ -63,9 +85,10 @@ a {
   border: 1px solid var(--bordas);
 }
 
-
 table,
-tabela {
+tabela,
+tabela1,
+tabela2 {
   height: 25px !important;
   margin: 0px !important;
   border: solid 0.5px var(--bordas) !important;
@@ -74,7 +97,6 @@ tabela {
 
 div#tabela {
   overflow-x: auto;
- 
 }
 
 .tab-content {
@@ -83,7 +105,7 @@ div#tabela {
 
 .btn-primary {
   /*incluir*/
-  background-color:#007bff !important;
+  background-color: #007bff !important;
   border-color: #007bff !important;
   height: 30px !important;
   margin: 8px !important;
@@ -92,8 +114,8 @@ div#tabela {
 
 .btn-success {
   /*Salvar*/
-  background-color:#28a745 !important;
-  border-color: #28a745!important;
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
   height: 30px !important;
   margin: 8px !important;
   padding: 2px 25px 2px 25px !important;
@@ -102,8 +124,8 @@ div#tabela {
 
 .btn-secondary {
   /*Cancelar*/
-  background-color:#6c757d !important;
-  border-color: #6c757d!important;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
   height: 30px !important;
   margin: 8px !important;
   padding: 2px 15px 2px 15px !important;
@@ -111,10 +133,10 @@ div#tabela {
 }
 
 .btn-warning {
-   /*Alterar*/
-  background-color:var(--laranja-aws) !important;
-  border-color: var(--laranja-aws)!important;
-  color: var(--branco)!important;
+  /*Alterar*/
+  background-color: var(--laranja-aws) !important;
+  border-color: var(--laranja-aws) !important;
+  color: var(--branco) !important;
   height: 20px !important;
   margin: 4px !important;
   padding: 0px 15px 0px 15px !important;
@@ -123,8 +145,8 @@ div#tabela {
 
 .btn-danger {
   /*excluir*/
-  background-color: var(--laranja-247a)!important;
-  border-color: var(--laranja-247a)!important;
+  background-color: var(--laranja-247a) !important;
+  border-color: var(--laranja-247a) !important;
   height: 20px !important;
   margin: 4px !important;
   padding: 0px 15px 0px 15px !important;
@@ -132,33 +154,12 @@ div#tabela {
 }
 
 .btn-dark {
-  background-color:var(--azul-247c) !important;
+  background-color: var(--azul-247c) !important;
   border-color: var(--azul-247c) !important;
   height: 25px !important;
   margin: 8px !important;
   padding: 0px 15px 0px 15px !important;
   font-size: 14px !important;
-}
-
-.img-logo {
-  width: 70px;
-  height: 35px;
-}
-
-.row {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.img-fundo {
-  background-image: url("../img/quadra11.jpeg");
-  background-size: cover; /* Faz a imagem cobrir toda a área */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Evita repetição da imagem */
-  background-attachment: fixed; /* Mantém a imagem fixa ao rolar a página */
-  margin: 0;
-  padding: 0;
-  height: 100vh; /* Garante que o body ocupe toda a altura da tela */
 }
 
 .titulo {
@@ -202,18 +203,17 @@ div#tabela {
   margin: 1px;
   border: 1px solid var(--bordas);
   border-radius: 8px;
-  padding:10px;
+  padding: 10px;
 }
 
-.texto-topo{
+.texto-topo {
   color: var(--azul-247c);
   margin: 0%;
   font-size: 25px;
 }
 
-.texto-topo-rotina-periodica{
+.texto-topo-rotina-periodica {
   color: var(--laranja-aws);
   margin: 0%;
   font-size: 20px;
 }
-

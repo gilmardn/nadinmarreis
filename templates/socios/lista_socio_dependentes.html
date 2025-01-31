@@ -1,62 +1,61 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% load static %}
-{% block conteudo %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% load static %} {% block conteudo %}
 <div class="container">
-    <div class="row">
-        <div class="centro col-sm-12">
-            <div class="d-flex justify-content-end" style="margin-top: 5px;">
-                <a href="{% url 'home' %}" class="btn-close"></a>
-            </div>
+  <div class="row">
+    <div class="centro col-sm-12">
+      <div class="d-flex justify-content-end" style="margin-top: 5px">
+        <a href="{% url 'home' %}" class="btn-close"></a>
+      </div>
 
-            <div class="table-principal">
-                <div class="alert titulo" role="alert">
-                    <H3><strong>Lista de Sócios com Dependentes</strong></h3>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <a href="{% url 'home' %}" class="btn btn-secondary ">Voltar pagina inicial</a>
-                    <form method="GET" action="{% url 'lista_socio_dependentes' %}"
-                        style="display: flex; align-items: center;">
-                        <input type="text" class="form-control" style="width: 150px; margin-right: 5px;  height: 30px"
-                            name="q" placeholder="Buscar por nome">
-                        <button type="submit" class="btn btn-success">Pesquisar</button>
-                    </form>
-                </div>
-                <div id="tabela">
-                    <table class="table table-striped table-bordered" style="border: solid 0.5px #f08c00;">
-                        <thead>
-                            <tr>
-                                <th>Nome do Sócio</th>
-                                <th>Email</th>
-                                <th>Telefone</th>
-                                <th>Dependentes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for socio in socios %}
-                            <tr>
-                                <td>{{ socio.nome }}</td>
-                                <td>{{ socio.email }}</td>
-                                <td>{{ socio.telefone }}</td>
-                                <td>
-                                    {% if socio.dependentes.all %}
-                                    {% for dependente in socio.dependentes.all %}
-                                    <li>{{ dependente.nome }} ({{ dependente.parentesco }})</li>
-                                    {% endfor %}
-                                    {% else %}
-                                    <li>
-                                        <em>Sem dependentes</em>
-                                    </li>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                {% include 'parciais/paginador.html' %}
-            </div>
+      <div class="table-principal">
+        <div class="alert titulo" role="alert">
+          <h3><strong>Lista de Sócios com Dependentes</strong></h3>
         </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <a href="{% url 'home' %}" class="btn btn-secondary">Voltar pagina inicial</a>
+          <form method="GET" action="{% url 'lista_socio_dependentes' %}" style="display: flex; align-items: center">
+            <input
+              type="text"
+              class="form-control"
+              style="width: 150px; margin-right: 5px; height: 30px"
+              name="q"
+              placeholder="Buscar por nome"
+            />
+            <button type="submit" class="btn btn-success">Pesquisar</button>
+          </form>
+        </div>
+        <div id="tabela">
+          <table class="table table-striped table-bordered" style="border: solid 0.5px #f08c00">
+            <thead>
+              <tr>
+                <th>Nome do Sócio</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Dependentes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for socio in socios %}
+              <tr>
+                <td>{{ socio.nome }}</td>
+                <td>{{ socio.email }}</td>
+                <td>{{ socio.telefone }}</td>
+                <td>
+                  {% if socio.dependentes.all %} {% for dependente in socio.dependentes.all %}
+                  <li>{{ dependente.nome }} ({{ dependente.parentesco }})</li>
+                  {% endfor %} {% else %}
+                  <li>
+                    <em>Sem dependentes</em>
+                  </li>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% include 'parciais/paginador.html' %}
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}

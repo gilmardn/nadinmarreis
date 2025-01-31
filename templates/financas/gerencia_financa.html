@@ -1,115 +1,113 @@
-{% extends "base.html" %}
-{% block conteudo %}
+{% extends "base.html" %} {% block conteudo %}
 
 <div class="container">
-    <div class="row">
-        <div class="centro col-sm-12">
-            <div class="d-flex justify-content-end" style="margin-top: 5px;">
-                <a href="{% url 'home' %}" class="btn-close"></a>
-            </div>
-            <div class="table-principal">
-                <div class="alert titulo" role="alert">
-                    <h3><strong>Gerenciamento Administrativo</strong></h3>
-                </div>
-                <div id="tabela">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="caixas-tab" data-bs-toggle="tab"
-                                data-bs-target="#caixas" type="button" role="tab" aria-controls="caixas"
-                                aria-selected="true">Caixa</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="horarios-tab" data-bs-toggle="tab" data-bs-target="#horarios"
-                                type="button" role="tab" aria-controls="horarios"
-                                aria-selected="false">Horarios</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content mt-4" id="myTabContent">
-                        <!-- Tabela caixa -->
-                        <div class="tab-pane fade show active" id="caixas" role="tabpanel" aria-labelledby="caixas-tab"
-                            style="margin: 8px;">
-                            <hr>
-                            <a href="{% url 'home' %}" class="btn btn-secondary ">Voltar pagina inicial</a>
-                            <div id="tabela">
-                            <table class="table table-striped table-hover table-bordered table-sm">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Lanç.</th>
-                                        <th class="text-center">Data</th>
-                                        <th class="text-center">Operação</th>
-                                        <th>Descricao</th>
-                                        <th class="text-center">Valor</th>
-                                        <th class="text-center">Consoli.</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for caixa in caixas %}
-                                    <tr>
-                                        <td class="text-center">{{ caixa.id_formatado }}</td>
-                                        <td class="text-center">{{ caixa.data|date:"d/m/Y" }}</td>
-                                        <td class="text-center">{{ caixa.get_tipo_operacao_display }}</td>
-                                        <td>{{ caixa.descricao }}</td>
-                                        {% if caixa.tipo_operacao == "saida" %}
-                                        <td class="text-end" style="color:red">(-{{ caixa.valor|floatformat:2 }})</td>
-                                        {% else %}
-                                        <td class="text-end">{{ caixa.valor|floatformat:2 }}</td>
-                                        {% endif %}
-                                        <td class="text-center">{% if caixa.consolidado %}<i class="material-icons" style="font-size: 15px;">check</i>{% endif %}</td>
-
-                                    </tr>
-                                    {% empty %}
-                                    <tr>
-                                        <td colspan="6">Nenhum lançamento encontrado.</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                            </div>
-                            {% include 'parciais/paginador.html' %}
-
-                        </div>
-
-                        <!-- Tabela de Horarios -->
-
-                        <div class="tab-pane fade" id="horarios" role="tabpanel" aria-labelledby="horarios-tab"
-                            style="margin: 8px;">
-                            <hr>
-
-                            <a href="{% url 'gerencia_financa' %}" class="btn btn-secondary btn-sm">Voltar</a>
-
-                            <table class="table table-striped table-hover table-bordered table-sm">
-                                <thead>
-                                    <tr>
-                                        <th class="text-left">Quadra</th>
-                                        <th class="text-left">Responsavel</th>
-                                        <th class="text-center">Data</th>
-                                        <th class="text-center">Hora_inicio</th>
-                                        <th class="text-center">Hora_final</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for horario in horarios %}
-                                    <tr>
-                                        <td>{{ horario.quadra.nome }}</td>
-                                        <td>{{ horario.responsavel }}</td>
-                                        <td class="text-center">{{ horario.data|date:"d/m/Y" }}</td>
-                                        <td class="text-center">{{ horario.hora_inicio|time:'H:i' }}</td>
-                                        <td class="text-center">{{ horario.hora_fim|time:'H:i' }}</td>
-                                    </tr>
-                                    {% empty %}
-                                    <tr>
-                                        <td colspan="5">Nenhum horario encontrado.</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="row">
+    <div class="centro col-sm-12">
+      <div class="d-flex justify-content-end" style="margin-top: 5px">
+        <a href="{% url 'home' %}" class="btn-close"></a>
+      </div>
+      <div class="table-principal">
+        <div class="alert titulo" role="alert">
+          <h3><strong>Gerenciamento Administrativo</strong></h3>
         </div>
+        <div id="tabela1">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="caixas-tab" data-bs-toggle="tab" data-bs-target="#caixas"
+                type="button" role="tab" aria-controls="caixas" aria-selected="true">
+                Caixa
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="horarios-tab" data-bs-toggle="tab" data-bs-target="#horarios" type="button"
+                role="tab" aria-controls="horarios" aria-selected="false">
+                Horarios
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content mt-4" id="myTabContent">
+            <!-- Tabela caixa -->
+            <div class="tab-pane fade show active" id="caixas" role="tabpanel" aria-labelledby="caixas-tab"
+              style="margin: 8px">
+              <hr />
+              <a href="{% url 'home' %}" class="btn btn-secondary">Voltar pagina inicial</a>
+              <div id="tabela">
+                <table class="table table-striped table-hover table-bordered table-sm">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Lanç.</th>
+                      <th class="text-center">Data</th>+
+                      <th class="text-center">Operação</th>
+                      <th>Descricao</th>
+                      <th class="text-center">Valor</th>
+                      <th class="text-center">Consoli.</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for caixa in caixas %}
+                    <tr>
+                      <td class="text-center">{{ caixa.id_formatado }}</td>
+                      <td class="text-center">{{ caixa.data|date:"d/m/Y" }}</td>
+                      <td class="text-center">{{ caixa.get_tipo_operacao_display }}</td>
+                      <td>{{ caixa.descricao }}</td>
+                      {% if caixa.tipo_operacao == "saida" %}
+                      <td class="text-end" style="color: red">(-{{ caixa.valor|floatformat:2 }})</td>
+                      {% else %}
+                      <td class="text-end">{{ caixa.valor|floatformat:2 }}</td>
+                      {% endif %}
+                      <td class="text-center">
+                        {% if caixa.consolidado %}<i class="material-icons" style="font-size: 15px">check</i>{% endif %}
+                      </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                      <td colspan="6">Nenhum lançamento encontrado.</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              {% include 'parciais/paginador.html' %}
+            </div>
+
+            <!-- Tabela de Horarios -->
+
+            <div class="tab-pane fade" id="horarios" role="tabpanel" aria-labelledby="horarios-tab" style="margin: 8px">
+              <hr />
+
+              <a href="{% url 'gerencia_financa' %}" class="btn btn-secondary btn-sm">Voltar</a>
+
+              <table class="table table-striped table-hover table-bordered table-sm">
+                <thead>
+                  <tr>
+                    <th class="text-left">Quadra</th>
+                    <th class="text-left">Responsavel</th>
+                    <th class="text-center">Data</th>
+                    <th class="text-center">Hora_inicio</th>
+                    <th class="text-center">Hora_final</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for horario in horarios %}
+                  <tr>
+                    <td>{{ horario.quadra.nome }}</td>
+                    <td>{{ horario.responsavel }}</td>
+                    <td class="text-center">{{ horario.data|date:"d/m/Y" }}</td>
+                    <td class="text-center">{{ horario.hora_inicio|time:'H:i' }}</td>
+                    <td class="text-center">{{ horario.hora_fim|time:'H:i' }}</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="5">Nenhum horario encontrado.</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock conteudo %}

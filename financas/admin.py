@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Quadra, Horario, Caixa, Categoria, Contador
+from .models import Quadra, Horario, Caixa, Categoria, Contador, Parceiro
 
 
 class CaixaAdmin(admin.ModelAdmin):
@@ -13,8 +13,17 @@ class CaixaAdmin(admin.ModelAdmin):
             return self.readonly_fields + ('data', 'tipo_operacao', 'categoria', 'descricao', 'valor', 'consolidado', 'criado_em', 'atualizado_em')
         return self.readonly_fields
 
+@admin.register(Parceiro)
+class ParceiroAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'email', 'telefone', 'ativo')
+    list_filter = ('ativo',)
+    search_fields = ('nome', 'email', 'cpf')
+
+
 admin.site.register(Quadra)
 admin.site.register(Horario)
 admin.site.register(Caixa, CaixaAdmin)
 admin.site.register(Categoria)
 admin.site.register(Contador)
+
+

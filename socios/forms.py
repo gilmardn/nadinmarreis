@@ -41,7 +41,10 @@ class SocioForm(forms.ModelForm):
             'observacao': forms.Textarea(attrs={'rows': "4"}),
             'cpf': forms.TextInput(attrs={'data-mask': '000.000.000-00'}),
             'telefone': forms.TextInput(attrs={'data-mask': '(00) 00000-0000'}),
+            'cep': forms.TextInput(attrs={'data-mask': '00.000-000'}),
             }
+        
+
         
     def __init__(self, *args, **kwargs): # Adiciona 
         super().__init__(*args, **kwargs)  
@@ -65,6 +68,7 @@ class SocioFormEdit(forms.ModelForm):
             'observacao': forms.Textarea(attrs={'rows': "4"}),
             'cpf': forms.TextInput(attrs={'data-mask': '000.000.000-00'}),
             'telefone': forms.TextInput(attrs={'data-mask': '(00) 00000-0000'}),
+            'cep': forms.TextInput(attrs={'data-mask': '00.000-000'}),
             }
 
   

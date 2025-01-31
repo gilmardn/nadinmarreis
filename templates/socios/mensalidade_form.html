@@ -1,73 +1,43 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% load static %}
-{% block conteudo %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% load static %} {% block conteudo %}
 <div class="container">
-    <div class="row">
-        <div class="centro col-sm-12">
-            <div class="d-flex justify-content-end" style="margin-top: 5px;">
-                <a href="{% url 'home' %}" class="btn-close"></a>
-            </div>
+  <div class="row">
+    <div class="centro col-sm-12">
+      <div class="d-flex justify-content-end" style="margin-top: 5px">
+        <a href="{% url 'home' %}" class="btn-close"></a>
+      </div>
 
-            <div class="table-principal">
-                <div class="alert titulo" role="alert">
-                    <H3><strong> Atualizações de Mensalidades</strong></h3>
-                </div>
-                <div class="borda-centro">
-                    <H3 class ="texto-topo"> Socio:&nbsp;&nbsp; {{ object.socio }} </H3>
-                    <hr>
-                <form method="post">{% csrf_token %}
-                    {# {{ form.as_p }} #}
-                    {{ form.socio|as_crispy_field }}
-                    {{ form.ano|as_crispy_field }}
-                    <p>Meses:</p>
-                    <div class="row" >
-                        <div class="col-sm-1">
-                            {{ form.jan|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1 text-center">
-                            {{ form.fev|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.mar|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.abr|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.mai|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.jun|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.jul|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.ago|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.set|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.out|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.nov|as_crispy_field }}
-                        </div>
-                        <div class="col-sm-1">
-                            {{ form.dez|as_crispy_field }}
-                        </div>
-                    </div>
-                    <hr>
-                    {{ form.observacoes|as_crispy_field }}
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                    <a href="{% url 'gestao_mensalidades' %}" class="btn btn-secondary">Cancelar</a>
-                </form>
-            </div>
-            </div>
+      <div class="table-principal">
+        <div class="alert titulo" role="alert">
+          <h3><strong> Atualizações de Mensalidades</strong></h3>
         </div>
+        <div class="borda-centro">
+          <h3 class="texto-topo">Socio:&nbsp;&nbsp; {{ object.socio }}</h3>
+          <hr />
+          <form method="post">
+            {% csrf_token %}{{ form.socio|as_crispy_field }} {{ form.ano|as_crispy_field }}
+            <p>Meses:</p>
+            <div class="row">
+              <div class="col-sm-1">{{ form.jan|as_crispy_field }}</div>
+              <div class="col-sm-1 text-center">{{ form.fev|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.mar|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.abr|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.mai|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.jun|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.jul|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.ago|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.set|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.out|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.nov|as_crispy_field }}</div>
+              <div class="col-sm-1">{{ form.dez|as_crispy_field }}</div>
+            </div>
+            <hr />
+            {{ form.observacoes|as_crispy_field }}
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="{% url 'gestao_mensalidades' %}" class="btn btn-secondary">Cancelar</a>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
-

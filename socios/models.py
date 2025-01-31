@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.timezone import now
 #from django.core.validators import MinValueValidator, MaxValueValidator
 #from django.db.models import Sum
-from datetime import datetime
+#from datetime import datetime
 #from django.db.models import Q
 
 #==================================================================================
@@ -10,16 +10,9 @@ class Socio_so_ativos(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(ativo=True)
     
-    '''
-    # Retorna apenas os sócios ativos
-        socios_ativos = Socio.objects.all()
-
-    # Retorna todos os sócios, incluindo os inativos (usando o Manager padrão)
-        socios_todos = Socio._base_manager.all()
-        ou
-        Socio.objects.all().filter(ativo=False)
-    '''
-
+        # socios_ativos = Socio.objects.all()    # Retorna apenas os sócios ativos
+        # socios_todos = Socio._base_manager.all()  # Retorna todos os sócios, incluindo os inativos (usando o Manager padrão)
+    
 #==================================================================================
 class Socio(models.Model):
     TIPOS_SOCIO = [('patrimonial', 'Patrimonial'), ('contribuinte', 'Contribuinte'), ('remido', 'Remido'), ('benemerito', 'Benemérito'),]
@@ -32,7 +25,7 @@ class Socio(models.Model):
     observacao = models.TextField(verbose_name="Observacões", blank=True, null=True)
     cidade = models.CharField(verbose_name= 'Cidade/Estado',max_length=50, blank=True, null=True)
     endereco = models.CharField(max_length=200, blank=True, null=True)
-    cep = models.CharField(verbose_name="CEP",max_length=9, blank=True, null=True)
+    cep = models.CharField(verbose_name="CEP",max_length=12, blank=True, null=True)
     ativo = models.BooleanField(default=True)
     foto = models.ImageField(upload_to='fotos_socios/', blank=True, null=True)
     cpf = models.CharField(verbose_name="CPF", max_length=14, unique=True, blank=True, null=True)

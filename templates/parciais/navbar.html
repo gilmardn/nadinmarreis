@@ -9,61 +9,111 @@
             <a class="nav-link" aria-current="page" href="{% url 'home' %}">&nbsp;&nbsp;&nbsp;Principal</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'lista_socio_dependentes' %}">&nbsp;&nbsp;&nbsp;Lista
-              Socios</a>
+            <a class="nav-link" aria-current="page" href="{% url 'lista_socio_dependentes' %}"
+              >&nbsp;&nbsp;&nbsp;Socios</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'lista_mensalidades' %}">&nbsp;&nbsp;&nbsp;Lista
-              Mensalidades</a>
+            <a class="nav-link" aria-current="page" href="{% url 'lista_mensalidades' %}"
+              >&nbsp;&nbsp;&nbsp;Mensalidades</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'lista_horario' %}">&nbsp;&nbsp;&nbsp;Lista
-              Agendamentos</a>
+            <a class="nav-link" aria-current="page" href="{% url 'lista_horario' %}">&nbsp;&nbsp;&nbsp;Agendamentos</a>
           </li>
           {% if request.user.username %}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="{% url 'login' %}" id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              &nbsp;&nbsp;&nbsp;Gestão Social
+            <a
+              class="nav-link dropdown-toggle"
+              href="{% url 'login' %}"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              &nbsp;&nbsp;&nbsp;Social
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="{% url 'gestao_socios' %}">Gestão de Socios</a></li>
+              <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="{% url 'gestao_dependentes' %}">Gestão de Dependentes</a></li>
+              <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="{% url 'gestao_mensalidades' %}">Gestão de Mensalidades</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
+              <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="{% url 'gerenciamento' %}">Resumo</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              &nbsp;&nbsp;&nbsp;Gestão Financeira
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              &nbsp;&nbsp;&nbsp;Financeiro
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="{% url 'gestao_caixa' %}">Gestão de Caixa</a></li>
+              <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="{% url 'gestao_horario' %}">Gestão de Alugueis</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="{% url 'gerencia_financa' %}">Resumo</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="{% url 'gestao_parceiro' %}">Gestão de Parceiros</a></li>
+              <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="{% url 'rotina_periodica' %}">Rotinas Mensais</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="{% url 'gerencia_financa' %}">Resumo</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              &nbsp;&nbsp;&nbsp;Relatórios e Graficos
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown1"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              &nbsp;&nbsp;&nbsp;Relatórios
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" target="_blank" href="{% url 'relatorio_socios_pdf' %}">Relatório de Socios</a></li>
-              <li><a class="dropdown-item" target="_blank" href="{% url 'gerar_relatorio_socio_pdf' %}">Relatório de Socios Completo</a>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" target="_blank" href="{% url 'relatorio_socios_pdf' %}">Relatório de Socios</a>
               </li>
-              <li><a class="dropdown-item" target="_blank" href="{% url 'relatorio_socios_mensalidades_pdf' %}">Relatório de
-                  Socios/Mensalidades</a></li>
-              <li><hr class="dropdown-divider"></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" target="_blank" href="{% url 'gerar_relatorio_socio_pdf' %}"
+                  >Relatório de Socios Completo</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" target="_blank" href="{% url 'relatorio_socios_mensalidades_pdf' %}"
+                  >Relatório de Socios/Mensalidades</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown2"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              &nbsp;&nbsp;&nbsp;Graficos
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="{% url 'grafico_mensalidades'%}">Grafico Mensalidades</a></li>
+              <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="{% url 'grafico_tipos_socio'%}">Grafico por tipo de Socio</a></li>
             </ul>
           </li>
@@ -92,12 +142,12 @@
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" style="align-items: end;" aria-current="page"
-            href="{% url 'login' %}">&nbsp;&nbsp;&nbsp;Login</a>
+          <a class="nav-link" style="align-items: end" aria-current="page" href="{% url 'login' %}"
+            >&nbsp;&nbsp;&nbsp;Login</a
+          >
         </li>
         {% endif %}
       </ul>
     </div>
   </nav>
 </header>
-

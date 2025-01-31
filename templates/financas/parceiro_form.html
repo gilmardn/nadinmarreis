@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% load static %} {% block conteudo %}
+
+<div class="container">
+  <div class="row">
+    <div class="centro col-sm-12">
+      <div class="d-flex justify-content-end" style="margin-top: 5px">
+        <a href="{% url 'home' %}" class="btn-close"></a>
+      </div>
+      <div class="table-principal">
+        <div class="alert titulo" role="alert">
+          <h3>
+            <strong>{% if object %}Alterar informações de Parceiro{% else %}Inclusão de Parceiro{% endif %} </strong>
+          </h3>
+        </div>
+        <div class="borda-centro">
+          <form method="post">
+            {% csrf_token %} {{ form.nome|as_crispy_field }} {{ form.endereco|as_crispy_field }}
+            <div class="row">
+              <div class="col-sm-6" style="margin: 0px; padding: 0px">{{ form.cidade|as_crispy_field }}</div>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-5" style="margin: 0px; padding: 0px">{{ form.cep|as_crispy_field }}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6" style="margin: 0px; padding: 0px">{{ form.email|as_crispy_field }}</div>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-5" style="margin: 0px; padding: 0px">{{ form.telefone|as_crispy_field }}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6" style="margin: 0px; padding: 0px">{{ form.cpf_cnpj|as_crispy_field }}</div>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-4" style="margin: 0px; padding: 0px">{{ form.ie|as_crispy_field }}</div>
+              <div class="col-sm-1" style="margin: 0px; padding-top: 15px">
+                <br />
+                {{ form.ativo|as_crispy_field }}
+              </div>
+            </div>
+            <hr />
+            <button type="submit" class="btn btn-success">
+              {% if object %}Salvar Alterações{% else %}Salvar{% endif %}
+            </button>
+            <a href="{% url 'gestao_parceiro' %}" class="btn btn-secondary">Cancelar</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,11 +1,39 @@
 from django.db import models
 from django.utils.timezone import now
-from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db.models import Sum
+#from django.core.validators import MinValueValidator, MaxValueValidator
+#from django.db.models import Sum
 from django.db.models import Q
-from usuarios.models import Usuario
+#from usuarios.models import Usuario
 
 #==================================================================================
+class Parceiro_so_ativos(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(ativo=True)
+        # parceiros_ativos = Socio.objects.all()    # Retorna apenas os sócios ativos
+        # todos_parceiros = Socio._base_manager.all()  # Retorna todos os sócios, incluindo os inativos (usando o Manager padrão)
+
+#==================================================================================
+class Parceiro(models.Model):
+    nome = models.CharField(verbose_name="Parceiro", max_length=100, unique=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    telefone = models.CharField(max_length=15, blank=True, null=True)
+    cidade = models.CharField(verbose_name= 'Cidade e Estado',max_length=50, blank=True, null=True)
+    endereco = models.CharField(max_length=200, blank=True, null=True)
+    cep = models.CharField(verbose_name="CEP",max_length=12, blank=True, null=True)
+    ativo = models.BooleanField(default=True)
+    cpf_cnpj = models.CharField(verbose_name="CNPJ", max_length=20, unique=True, blank=True, null=True)
+    ie = models.CharField(verbose_name="Inscrição Estadual", max_length=14, unique=False, blank=True, null=True)
+
+    # Manager personalizado
+    objects = Parceiro_so_ativos()
+
+    def __str__(self):
+        return self.nome
+    
+    class Meta:
+        ordering = ['nome']
+    
+#====================================================================================
 class Categoria(models.Model):
     nome = models.CharField(max_length=50) 
     ordem = models.CharField(max_length=50, blank=True)
@@ -22,14 +50,13 @@ class Contador(models.Model):
     def __str__(self):
         return   f"{self.id_salvo} - {self.data_execucao} - {self.observacoes}"
       
-
 #==================================================================================
 class Caixa(models.Model):
     TIPOS_OPERACAO = [('entrada', 'Entrada'), ('saida', 'Saida')]
     data = models.DateField()
     tipo_operacao = models.CharField(verbose_name='Tipo do operação', max_length=15, choices=TIPOS_OPERACAO)
-    categoria = models.ForeignKey(Categoria, verbose_name='Categoria', on_delete=models.CASCADE)
-    cliente_fornecedor = models.CharField(verbose_name='Cliente/Fornecedor', max_length=150, blank=True, default='')
+    categoria = models.ForeignKey(Categoria, verbose_name='Categoria', blank=True, null=True, on_delete=models.SET_NULL)
+    parceiro =  models.ForeignKey(Parceiro, verbose_name='Parceiro', blank=True, null=True, on_delete=models.SET_NULL)
     descricao = models.CharField(max_length=150, blank=True)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     consolidado = models.BooleanField(default=False)
@@ -38,7 +65,7 @@ class Caixa(models.Model):
     atualizado_em = models.DateTimeField(auto_now=True)  # Data de atualização
 
     class Meta:
-        ordering = ['-data', '-id']
+        ordering = ['-data']
 
     def __str__(self):
         return f"de: ##<{self.tipo_operacao}>####<{self.valor}>####<{self.data.strftime('%d/%m/%Y')}>## "
@@ -86,5 +113,3 @@ class Horario(models.Model):
         return f'{self.hora_fim.strftime("%H:%M")}'
 
 
-    
-    

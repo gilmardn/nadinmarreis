@@ -1,50 +1,59 @@
-{% extends "base.html" %}
-{% block conteudo %}
+{% extends "base.html" %} {% block conteudo %}
 <div class="container">
-    <div class="row">
-        <div class="centro col-sm-12">
-            <div class="d-flex justify-content-end" style="margin-top: 5px;">
-                <a href="{% url 'home' %}" class="btn-close"></a>
-            </div>
+  <div class="row">
+    <div class="centro col-sm-12">
+      <div class="d-flex justify-content-end" style="margin-top: 5px">
+        <a href="{% url 'home' %}" class="btn-close"></a>
+      </div>
 
-            <div class="table-principal">
-                <div class="alert titulo" role="alert">
-                    <H3><strong> A Sociedade Esportiva e Recreativa Nadin Marreis:</strong></h3>
-                </div>
-                <a href="{% url 'home' %}" class="btn btn-secondary ">Voltar pagina inicial</a>
-                <hr>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A Sociedade Esportiva e Recreativa Nadin Marreis, fundada em 20 de maio de 1973, é uma entidade
-                    jurídica sem fins lucrativos com sede em Julio de Castilhos, Rio Grande do Sul. Com mais de cinco
-                    décadas de existência, essa instituição se destaca como um modelo em promoção do
-                    esporte, recreação e socialização.</p>
-                <strong>Estrutura Organizacional</strong>
-                <p>A sociedade é composta por uma Diretoria, responsável pela administração e gestão dos
-                    recursos. Essa Diretoria é eleita bienalmente por meio de um processo democrático, garantindo a
-                    representatividade e participação dos sócios. A Assembleia Geral, órgão máximo da entidade, é
-                    composta por sócios quites, que têm voz e voto nas decisões importantes.</p>
-                <strong>Categorias de Sócios</strong>
-                <p>A Sociedade oferece quatro categorias de sócios: Benemérito, Remido, Proprietário e Contribuinte. Cada categoria
-                    possui direitos e deveres específicos, como frequentar dependências, votar, ser votado e propor
-                    novos sócios. Essa diversidade de categorias promove a inclusão e a participação ativa de todos os
-                    membros.</p>
-                <strong>Eleições e Assembleias</strong>
-                <p>As eleições são realizadas bienalmente, por escrutínio secreto, garantindo a transparência e a
-                    justiça. A Assembleia Geral se reúne anualmente para discutir relatórios, eleger novos dirigentes e
-                    deliberar sobre assuntos importantes. O quorum é estabelecido em metade mais um dos sócios,
-                    assegurando a representatividade.
-                    A Diretoria é responsável por dirigir a entidade, admitir e demitir sócios, executar os estatutos e
-                    regulamentos. O Presidente representa a sociedade, preside sessões, rubrica livros e assina
-                    documentos importantes. Essa estrutura garante a eficiência e a responsabilidade.</p>
-                <strong>Disposições Finais</strong>
-                <p>A Sociedade Esportiva e Recreativa Nadin Marreis é uma organização transparente. A
-                    dissolução da entidade só pode ocorrer por meio de Assembleia Geral, com 2/3 dos votos. O patrimônio
-                    é revertido para os sócios Remidos, garantindo a justiça e a equidade.</p>
-                <strong>Conclusão</strong>
-                <p>Sociedade Esportiva e Recreativa Nadin Marreis é uma entidade que promove o esporte, a
-                    recreação e a socialização, com uma estrutura organizacional sólida, democrática e transparente. Sua
-                    trajetória é um testemunho da importância da participação comunitária e da gestão responsável.</p>
-            </div>
+      <div class="table-principal">
+        <div class="alert titulo" role="alert">
+          <h3><strong> A Sociedade Esportiva e Recreativa Nadin Marreis:</strong></h3>
         </div>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Voltar pagina inicial</a>
+        <hr />
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A Sociedade Esportiva e Recreativa Nadin Marreis, fundada em
+          20 de maio de 1973, é uma entidade jurídica sem fins lucrativos com sede em Julio de Castilhos, Rio Grande do
+          Sul. Com mais de cinco décadas de existência, essa instituição se destaca como um modelo em promoção do
+          esporte, recreação e socialização.
+        </p>
+        <strong>Estrutura Organizacional</strong>
+        <p>
+          A sociedade é composta por uma Diretoria, responsável pela administração e gestão dos recursos. Essa Diretoria
+          é eleita bienalmente por meio de um processo democrático, garantindo a representatividade e participação dos
+          sócios. A Assembleia Geral, órgão máximo da entidade, é composta por sócios quites, que têm voz e voto nas
+          decisões importantes.
+        </p>
+        <strong>Categorias de Sócios</strong>
+        <p>
+          A Sociedade oferece quatro categorias de sócios: Benemérito, Remido, Proprietário e Contribuinte. Cada
+          categoria possui direitos e deveres específicos, como frequentar dependências, votar, ser votado e propor
+          novos sócios. Essa diversidade de categorias promove a inclusão e a participação ativa de todos os membros.
+        </p>
+        <strong>Eleições e Assembleias</strong>
+        <p>
+          As eleições são realizadas bienalmente, por escrutínio secreto, garantindo a transparência e a justiça. A
+          Assembleia Geral se reúne anualmente para discutir relatórios, eleger novos dirigentes e deliberar sobre
+          assuntos importantes. O quorum é estabelecido em metade mais um dos sócios, assegurando a representatividade.
+          A Diretoria é responsável por dirigir a entidade, admitir e demitir sócios, executar os estatutos e
+          regulamentos. O Presidente representa a sociedade, preside sessões, rubrica livros e assina documentos
+          importantes. Essa estrutura garante a eficiência e a responsabilidade.
+        </p>
+        <strong>Disposições Finais</strong>
+        <p>
+          A Sociedade Esportiva e Recreativa Nadin Marreis é uma organização transparente. A dissolução da entidade só
+          pode ocorrer por meio de Assembleia Geral, com 2/3 dos votos. O patrimônio é revertido para os sócios Remidos,
+          garantindo a justiça e a equidade.
+        </p>
+        <strong>Conclusão</strong>
+        <p>
+          Sociedade Esportiva e Recreativa Nadin Marreis é uma entidade que promove o esporte, a recreação e a
+          socialização, com uma estrutura organizacional sólida, democrática e transparente. Sua trajetória é um
+          testemunho da importância da participação comunitária e da gestão responsável.
+        </p>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}

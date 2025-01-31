@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block conteudo %}
+  <div class="container">
+    <div class="row">
+      <div class="centro col-sm-12">
+        <div class="d-flex justify-content-end" style="margin-top: 5px">
+          <a href="{% url 'home' %}" class="btn-close"></a>
+        </div>
+        <div class="table-principal">
+          <div class="alert titulo" role="alert">
+            <h3><strong>Gerenciamento dos Parceiros</strong></h3>
+          </div>
+          {% include 'parciais/mensagens.html' %}
+          <hr style="padding: 0; margin: 0" />
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <a href="{% url 'parceiro_create' %}" class="btn btn-primary btn-sm" style="margin: 8px">Adicionar Novo Parceiro</a>
+              <a href="{% url 'home' %}" class="btn btn-secondary">Voltar pagina inicial</a>
+            </div>
+            <div>
+              {% include 'parciais/pesquisa.html' %}
+            </div>
+          </div>
+          <table class="table table-striped table-hover table-bordered table-sm">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th class="text-center">Telefone</th>
+                <th class="text-center">Ações</th>
+                <th class="text-center">Ativo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for parceiro in parceiros %}
+                <tr>
+                  <td>{{ parceiro.nome }}</td>
+                  <td>{{ parceiro.email }}</td>
+                  <td class="text-center">{{ parceiro.telefone }}</td>
+                  <td class="text-center">
+                    <a href="{% url 'parceiro_update' parceiro.pk %}" class="btn btn-warning btn-sm">Alterar</a>
+                    <!-- <a href="{% url 'parceiro_delete' parceiro.pk %}" class="btn btn-danger btn-sm">Excluir</a> -->
+                  </td>
+                  <td class="text-center">
+                    {% if parceiro.ativo %}
+                      <!-- <i class="material-icons" style="font-size: 15px;">check</i> -->
+                      <img src="/static/img/icon/icon-yes.svg" alt="True" />
+                    {% else %}
+                      <img src="/static/img/icon/icon-no.svg" alt="False" />
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% include 'parciais/paginador.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,33 +1,28 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% load static %}
-
-{% block conteudo %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% load static %} {% block conteudo %}
 <div class="container">
-    <div class="row">
-        <div class="centro col-sm-12">
-            <div class="d-flex justify-content-end" style="margin-top: 5px;">
-                <a href="{% url 'home' %}" class="btn-close"></a>
-            </div>
+  <div class="row">
+    <div class="centro col-sm-12">
+      <div class="d-flex justify-content-end" style="margin-top: 5px">
+        <a href="{% url 'home' %}" class="btn-close"></a>
+      </div>
 
-            <div class="table-principal">
-                <div class="alert titulo" role="alert">
-                    <H3><strong>Exclusão de Dependente.</strong></h3>
-                </div>
-                <div class="borda-centro">
-                    <strong class ="texto-topo"> Dependente:&nbsp;&nbsp;  {{ dependente.nome }} </strong>
-                    <hr>
-                    <h6><strong>Tem certeza que deseja excluir o dependente&nbsp; {{ dependente.nome }}</strong></h6>
-                    <form method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Confirma Exclusão</button>
-                        <a href="{% url 'gestao_dependentes' %}" class="btn btn-secondary">Cancelar</a>
-                    </form>
-                </div>
-            </div>
+      <div class="table-principal">
+        <div class="alert titulo" role="alert">
+          <h3><strong>Exclusão de Dependente.</strong></h3>
         </div>
+        <div class="borda-centro">
+          <strong class="texto-topo"> Dependente:&nbsp;&nbsp; {{ dependente.nome }} </strong>
+          <hr />
+          <h6><strong>Tem certeza que deseja excluir o dependente&nbsp; {{ dependente.nome }}</strong></h6>
+          <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Confirma Exclusão</button>
+            <a href="{% url 'gestao_dependentes' %}" class="btn btn-secondary">Cancelar</a>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 {% endblock %}
-

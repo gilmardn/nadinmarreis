@@ -1,28 +1,45 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
-{% block conteudo %}
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% load static %} {% block conteudo %}
 <div class="container">
-    <div class="row">
-        <div class="centro col-sm-12">
-            <div class="d-flex justify-content-end" style="margin-top: 5px;">
-                <a href="{% url 'home' %}" class="btn-close"></a>
-            </div>
-
-            <div class="table-principal">
-                <div class="alert titulo" role="alert">
-                    <h3><strong>{% if object %}Alterar horario de treino{% else %}Agendar novo horario de treino {% endif %} </strong></h3>
-                </div>
-                <div class="borda-centro">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-success">{% if object %}Salvar alteração{% else %}Salvar agendamento{% endif %}</button>
-                        <a href="{% url 'gestao_horario' %}" class="btn btn-secondary">Cancelar</a>
-                    </form>
-                </div>
-            </div>
+  <div class="row">
+    <div class="centro col-sm-12">
+      <div class="d-flex justify-content-end" style="margin-top: 5px">
+        <a href="{% url 'home' %}" class="btn-close"></a>
+      </div>
+      <div class="table-principal">
+        <div class="alert titulo" role="alert">
+          <h3>
+            <strong>{% if object %}Alterar horario de treino{% else %}Agendar novo horario de treino {% endif %}
+            </strong>
+          </h3>
         </div>
+        <div class="borda-centro">
+          <form method="post">
+            {% csrf_token %} {{ form.quadra|as_crispy_field }} {{ form.responsavel|as_crispy_field }}
+            <div class="row">
+              <div class="col-sm-4" style="margin: 0px; padding: 0px">{{ form.data|as_crispy_field }}</div>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-3" style="margin: 0px; padding: 0px">{{ form.hora_inicio|as_crispy_field }}</div>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-3" style="margin: 0px; padding: 0px">{{ form.hora_fim|as_crispy_field }}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12" style="margin: 0px; padding: 0px; text-align: end;">
+                <br />
+                <button type="submit" class="btn btn-success">
+                  {% if object %}
+                  Salvar Alteração
+                  {% else %}
+                  Salvar Lançamento
+                  {% endif %}
+                </button>
+                <a href="{% url 'gestao_caixa' %}" class="btn btn-secondary">Voltar Pagina Anterior</a>
+              </div>
+            </div>
+          </form>
+          {% include 'parciais/mensagens.html' %}
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
