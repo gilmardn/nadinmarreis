@@ -14,14 +14,17 @@ from django.utils import timezone
 from datetime import datetime
 from django.utils.decorators import method_decorator
 from utils.decorators import permissoes_requeridas
-
-#from django.urls import path
-
-#####  ROTINA DE PERMISSOES  #######
-
 from django.conf import settings
-LINHAS_POR_PAGINA = settings.LINHAS_POR_PAGINA
 
+
+LINHAS_POR_PAGINA = int(settings.LINHAS_POR_PAGINA)
+
+if LINHAS_POR_PAGINA is None:
+    LINHAS_POR_PAGINA = 10  # ou outro valor padrão
+
+
+
+#-----------------------------------------------------------------------------
 class DatePickerInput(DateInput):
     input_type = 'date'
 

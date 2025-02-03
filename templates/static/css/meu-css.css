@@ -88,7 +88,8 @@ a {
 table,
 tabela,
 tabela1,
-tabela2 {
+tabela2,
+tabela3 {
   height: 25px !important;
   margin: 0px !important;
   border: solid 0.5px var(--bordas) !important;
