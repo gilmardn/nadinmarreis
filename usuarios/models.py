@@ -8,9 +8,9 @@ class Usuario(AbstractUser):
         ('financeiro', 'Financeiro'),
         ('social', 'Social'),
         ('esportivo', 'Esportivo'),
-        ('livre', 'Livre'),
+        ('basico', 'Basico'),
     ]
     email = models.EmailField(unique=True)
-    nivel_acesso = models.CharField(max_length=20, choices=ACESSOS_CHOICES, default='livre')
+    nivel_acesso = models.CharField(max_length=20, choices=ACESSOS_CHOICES, default='basico')
     
 

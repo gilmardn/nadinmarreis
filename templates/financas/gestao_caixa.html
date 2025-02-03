@@ -13,11 +13,10 @@
                 <hr style="padding: 0; margin: 0" />
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <a href="{% url 'caixa-create' %}" class="btn btn-primary"
-                            style="margin-right: 10px">Lançamentos Caixa</a>
+                        <a href="{% url 'caixa-create' %}" class="btn btn-primary" style="margin-right: 10px">Lançamentos Caixa</a>
                         <a href="{% url 'home' %}" class="btn btn-secondary">Voltar pagina inicial</a>
                     </div>
-                    
+
                     <div>
                         <table class="table table-hover table-sm">
                             <thead>
@@ -25,13 +24,13 @@
                                     <th style="width: 150px; color: var(--azul-247b)" class="text-left">A consolidar:
                                     </th>
                                     <th style="width: 150px; color: var(--azul-247c)" class="text-end">
-                                        {{saldo_a_consolidar }}</th>
+                                        {{caixa.saldo_a_consolidar_formatado }}</th>
                                 </tr>
                                 <tr>
                                     <th style="width: 150px; color: var(--azul-247b)" class="text-left">Consolidado:
                                     </th>
                                     <th style="width: 150px; color: var(--azul-247c)" class="text-end">
-                                        {{saldo_consolidado }}</th>
+                                        {{caixa.saldo_consolidado_formatado }}</th>
                                 </tr>
                             </thead>
                         </table>
@@ -52,11 +51,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for caixa in caixas %}
+                            {% for caixa in page_obj %}
                             <tr>
                                 <td class="text-center">{{ caixa.id_formatado }}</td>
                                 <td class="text-center">{{ caixa.data|date:"d/m/Y" }}</td>
-                                
+
                                 <td>{{ caixa.descricao }}</td>
                                 {% if caixa.tipo_operacao == "saida" %}
                                 <td class="text-end" style="color: red">(-{{ caixa.valor|floatformat:2 }})</td>
@@ -66,24 +65,20 @@
                                 <td class="text-center">{{ caixa.get_tipo_operacao_display }}</td>
                                 <td class="text-center">
                                     {% if caixa.consolidado %}
-                                    <a href="#" class="btn btn-warning disabled btn-sm" aria-disabled="true"
-                                        tabindex="-1" role="button">Alterar</a>
-                                    <a href="#" class="btn btn-danger disabled btn-sm" aria-disabled="true"
-                                        tabindex="-1" role="button">Excluir</a>
+                                    <a href="#" class="btn btn-warning disabled btn-sm" aria-disabled="true" tabindex="-1" role="button">Alterar</a>
+                                    <a href="#" class="btn btn-danger disabled btn-sm" aria-disabled="true" tabindex="-1" role="button">Excluir</a>
                                     {% else %}
-                                    <a href="{% url 'caixa-update' caixa.pk %}"
-                                        class="btn btn-warning btn-sm">Alterar</a>
-                                    <a href="{% url 'caixa-delete' caixa.pk %}"
-                                        class="btn btn-danger btn-sm">Excluir</a>
+                                    <a href="{% url 'caixa-update' caixa.pk %}" class="btn btn-warning btn-sm">Alterar</a>
+                                    <a href="{% url 'caixa-delete' caixa.pk %}" class="btn btn-danger btn-sm">Excluir</a>
                                     {% endif %}
                                 </td>
                                 <td class="text-center">
                                     {% if caixa.consolidado %}
                                     <!-- <i class="material-icons" style="font-size: 15px;">check</i> -->
-                      <img src="/static/img/icon/icon-yes.svg" alt="True" />
-                      {% else %}
-                        <img src="/static/img/icon/icon-no.svg" alt="False" />
-                      {% endif %}
+                                    <img src="/static/img/icon/icon-yes.svg" alt="True" />
+                                    {% else %}
+                                    <img src="/static/img/icon/icon-no.svg" alt="False" />
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% empty %}

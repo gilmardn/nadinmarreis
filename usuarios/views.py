@@ -12,10 +12,13 @@ def cadastro(request):
         form = UsuarioForm(request.POST)
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+
         if password != confirm_password:
-            form.add_error('first_name', 'Senhas não coincidem.')
+            form.add_error('confirm_password', 'Senhas não coincidem.')
+
         if form.is_valid():
             form.save()
+            messages.success(request, 'Cadastro realizado com sucesso!')
             return redirect('login')
     else:
         form = UsuarioForm()
@@ -24,7 +27,6 @@ def cadastro(request):
 
 
 #====================================================================================
-
 
 def login_view(request):
     # Redireciona usuários já autenticados
@@ -64,6 +66,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
 
 
 def popular_categorias(request):

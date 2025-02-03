@@ -24,7 +24,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for socio in socios %}
+              {% for socio in page_obj %}
               <tr>
                 <td>{{ socio.nome }}</td>
                 <td>{{ socio.get_tipo_socio_display }}</td>

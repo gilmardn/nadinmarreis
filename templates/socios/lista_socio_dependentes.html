@@ -12,16 +12,7 @@
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <a href="{% url 'home' %}" class="btn btn-secondary">Voltar pagina inicial</a>
-          <form method="GET" action="{% url 'lista_socio_dependentes' %}" style="display: flex; align-items: center">
-            <input
-              type="text"
-              class="form-control"
-              style="width: 150px; margin-right: 5px; height: 30px"
-              name="q"
-              placeholder="Buscar por nome"
-            />
-            <button type="submit" class="btn btn-success">Pesquisar</button>
-          </form>
+          {% include 'parciais/pesquisa.html' %}
         </div>
         <div id="tabela">
           <table class="table table-striped table-bordered" style="border: solid 0.5px #f08c00">
@@ -34,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for socio in socios %}
+              {% for socio in page_obj %}
               <tr>
                 <td>{{ socio.nome }}</td>
                 <td>{{ socio.email }}</td>

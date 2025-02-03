@@ -52,7 +52,7 @@ a {
 }
 
 .img-fundo {
-  background-image: url('../img/quadra_2_casa.jpeg');
+  background-image: url('../img/image/_fundo_tela.jpeg');
   background-size: cover; /* Faz a imagem cobrir toda a área */
   background-position: center; /* Centraliza a imagem */
   background-repeat: no-repeat; /* Evita repetição da imagem */

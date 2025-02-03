@@ -11,11 +11,13 @@ from reportlab.pdfgen import canvas
 from collections import Counter
 from django.core.serializers.json import DjangoJSONEncoder
 import json
+from django.utils.decorators import method_decorator
+from utils.decorators import permissoes_requeridas
 
 
 
 
-CAMINHO_LOGO = 'C:/Gilmar/Django2023/nadinmarreis/templates/static/img/bandeira.jpeg' 
+CAMINHO_LOGO = 'C:/Gilmar/Django2023/nadinmarreis/templates/static/img/image/_logo.jpeg' 
 
 #-- função ===============================================================================
 def add_cabecalho_rodape(canvas, doc):
@@ -62,7 +64,8 @@ def totalizar_mensalidades_por_ano():
     return resultado
 
 #-- views ===============================================================================
-
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def relatorio_socios_pdf(request):
     # Agrupa os sócios por tipo
     socios_por_tipo = {}
@@ -75,7 +78,6 @@ def relatorio_socios_pdf(request):
     response['Content-Disposition'] = 'inline; filename="relatorio_socios.pdf"'
     # Configura o documento PDF com BaseDocTemplate
     doc = BaseDocTemplate(response, pagesize=letter)
-    doc.setTitle("Relatorio_socios")  # Define o título do PDF
     frame = Frame(inch, inch, doc.width, doc.height - 2 * inch, id='normal')  # Define a área útil da página
     template = PageTemplate(id='test', frames=frame, onPage=add_cabecalho_rodape)  # Adiciona o cabeçalho e rodapé
     doc.addPageTemplates([template])
@@ -119,6 +121,8 @@ def relatorio_socios_pdf(request):
 
 
 #-- views ===============================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def gerar_relatorio_socio_pdf(request):
     # Cria um objeto HttpResponse com o cabeçalho de PDF apropriado
     response = HttpResponse(content_type='application/pdf')
@@ -162,6 +166,8 @@ def gerar_relatorio_socio_pdf(request):
     return response
 
 #-- views ===============================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def relatorio_socios_mensalidades_pdf(request):
     # Busca todos os sócios e suas mensalidades
     socios = Socio.objects.all().order_by('nome')
@@ -179,7 +185,6 @@ def relatorio_socios_mensalidades_pdf(request):
     response['Content-Disposition'] = 'inline; filename="relatorio_mensalidades.pdf"'
     # Configura o documento PDF com BaseDocTemplate
     doc = BaseDocTemplate(response, pagesize=letter)
-    doc.setTitle("Relatorio_mensalidades")  # Define o título do PDF
     frame = Frame(inch, inch, doc.width, doc.height - 2 * inch, id='normal')  # Define a área útil da página
     template = PageTemplate(id='test', frames=frame, onPage=add_cabecalho_rodape)  # Adiciona o cabeçalho e rodapé
     doc.addPageTemplates([template])
@@ -240,6 +245,8 @@ def relatorio_socios_mensalidades_pdf(request):
 
 
 #-- views ===============================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def grafico_mensalidades(request):
     dados = totalizar_mensalidades_por_ano()
     anos = [str(item['ano']) for item in dados]

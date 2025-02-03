@@ -6,28 +6,28 @@
         <a href="{% url 'home' %}" class="btn-close"></a>
       </div>
 
+
       <div class="table-principal">
         <div class="alert titulo" role="alert">
           <h3><strong>Gerenciamento do Quadro Social</strong></h3>
         </div>
+        
         <div id="tabela">
+        
           <form method="POST" action="">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button"
-                  role="tab" aria-controls="tab1" aria-selected="true">
+                <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">
                   Sócios
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button"
-                  role="tab" aria-controls="tab2" aria-selected="false">
+                <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">
                   Dependentes
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button"
-                  role="tab" aria-controls="tab3" aria-selected="false">
+                <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">
                   Mensalidades
                 </button>
               </li>
@@ -36,14 +36,15 @@
           </form>
           <div class="tab-content mt-4" id="myTabContent">
             <!-- Tabela de Sócios -->
-            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab"
-              style="margin: 8px">
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab" style="margin: 8px">
               <hr />
               <div class="d-flex justify-content-between align-items-center">
                 <div>
                   <a href="{% url 'home' %}" class="btn btn-secondary">Voltar pagina inicial</a>
                 </div>
-                <div>{% include 'parciais/pesquisa.html' %}</div>
+                <div>
+                  {% include 'parciais/pesquisa.html' %}
+                </div>
               </div>
               <div id="tabela">
                 <table class="table table-striped table-hover table-bordered table-sm">
@@ -73,7 +74,6 @@
                   </tbody>
                 </table>
               </div>
-              {% include 'parciais/paginador.html' %}
             </div>
             <!-- Tabela de Dependentes -->
             <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab" style="margin: 8px">
@@ -82,7 +82,9 @@
                 <div>
                   <a href="{% url 'gerenciamento' %}" class="btn btn-secondary">Voltar</a>
                 </div>
-                <div>{% include 'parciais/pesquisa.html' %}</div>
+                <div>
+                  {% include 'parciais/pesquisa_1.html' %}
+                </div>
               </div>
               <div id="tabela1">
                 <table class="table table-striped table-bordered">
@@ -112,18 +114,17 @@
                   </tbody>
                 </table>
               </div>
-              {% include 'parciais/paginador.html' %}
             </div>
             <!-- Tabela de mensalidades -->
             <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab" style="margin: 8px">
               <hr />
               <div class="d-flex justify-content-between align-items-center">
-                <a href="{% url 'gerenciamento' %}" class="btn btn-secondary">Voltar</a>
-                <form method="GET" action="{% url 'gerenciamento' %}" style="display: flex; align-items: center">
-                  <input type="text" class="form-control" style="width: 150px; margin-right: 5px; height: 30px" name="q"
-                    placeholder="Buscar por nome" />
-                  <button type="submit" class="btn btn-success">Pesquisar</button>
-                </form>
+                <div>
+                  <a href="{% url 'gerenciamento' %}" class="btn btn-secondary">Voltar</a>
+                </div>
+                <div>
+                  {% include 'parciais/pesquisa_2.html' %}
+                </div>
               </div>
               <div id="tabela2">
                 <table class="table table-striped table-bordered">
@@ -145,7 +146,6 @@
                   </tbody>
                 </table>
               </div>
-              {% include 'parciais/paginador.html' %}
             </div>
           </div>
         </div>

@@ -1,17 +1,24 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG') == 'True'
+LINHAS_POR_PAGINA = os.getenv('LINHAS_POR_PAGINA')
 
-SECRET_KEY = 'django-insecure-2)p^pk40f0me5lu0jl_6n=t8547enviomgbv2nxn0odq&in1mf'
 
-DEBUG = True  # Em produção  =  True
+#SECRET_KEY = 'django-insecure-2)p^pk40f0me5lu0jl_6n=t8547enviomgbv2nxn0odq&in1mf'
+#DEBUG = True  # Em produção  =  True
+#LINHAS_POR_PAGINA = 14
 
 ALLOWED_HOSTS = ['*',]
 
 # minhas variaveis
-LINHAS_POR_PAGINA = 14
+
 
 
 INSTALLED_APPS = [
@@ -104,9 +111,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'login'
 
-
+LOGIN_URL = 'login'  # URL da view de login
+LOGIN_REDIRECT_URL = 'home'  # URL para redirecionar após o login
 
 
 # Messages

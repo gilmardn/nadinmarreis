@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.timezone import now
 #from django.core.validators import MinValueValidator, MaxValueValidator
 #from django.db.models import Sum
-from django.db.models import Q
+from django.db.models import Sum, Q
 #from usuarios.models import Usuario
 
 #==================================================================================
@@ -73,9 +73,35 @@ class Caixa(models.Model):
     def id_formatado(self):
         return f"{self.id:05}"  # Formata o código com zeros à esquerda
 
-    def Xfdata(self):
-        return f"{self.data.strftime('%d/%m/%Y')}"
+    #def Xfdata(self):
+    #    return f"{self.data.strftime('%d/%m/%Y')}"
+
+    @classmethod
+    def _calcular_saldo(cls, consolidado):
+        #Método privado para calcular o saldo (consolidado ou não).
+        entradas = cls.objects.filter(tipo_operacao='entrada', consolidado=consolidado).aggregate(total=Sum('valor'))['total'] or 0
+        saidas = cls.objects.filter(tipo_operacao='saida', consolidado=consolidado).aggregate(total=Sum('valor'))['total'] or 0
+        return entradas - saidas
+
+    @property
+    def saldo_consolidado(self):
+        #Retorna o saldo consolidado como um número (Decimal).
+        return self._calcular_saldo(consolidado=True)
+
+    @property
+    def saldo_a_consolidar(self):
+        #        Retorna o saldo a consolidar como um número (Decimal).
+        return self._calcular_saldo(consolidado=False)
+
+    def saldo_consolidado_formatado(self):
+        #Retorna o saldo consolidado formatado como string (ex.: "1,000.00").
+        return f"{self.saldo_consolidado:,.2f}"
+
+    def saldo_a_consolidar_formatado(self):
+    #    Retorna o saldo a consolidar formatado como string (ex.: "1,000.00").
+        return f"{self.saldo_a_consolidar:,.2f}"
     
+    '''
     @property
     def saldo_consolidado(self):
         entrada = Caixa.objects.filter(Q(tipo_operacao='entrada') & Q(consolidado=True)).aggregate(total=models.Sum('valor'))['total'] or 0
@@ -88,6 +114,8 @@ class Caixa(models.Model):
         saida = Caixa.objects.filter(Q(tipo_operacao='saida') & Q(consolidado=False)).aggregate(total=models.Sum('valor'))['total'] or 0
         z = entrada - saida
         return f"{z:,.2f}"
+    '''
+    
     
 #==========================  Finanças ============================================
 class Quadra(models.Model):
@@ -105,11 +133,11 @@ class Horario(models.Model):
     hora_fim = models.TimeField()
     def __str__(self):
         return f" <<< {self.quadra.nome} >>>  Dia {self.data.strftime('%d/%m/%y')}  das  {self.hora_inicio.strftime('%H:%M')} as  {self.hora_fim.strftime('%H:%M')} horas"
-    def Xfdata(self):
-        return f"{self.data.strftime('%d/%m/%Y')}"
-    def Xfhora_inicio(self):
-        return f'{self.hora_inicio.strftime("%H:%M")}'
-    def Xfhora_fim(self):
-        return f'{self.hora_fim.strftime("%H:%M")}'
+    #def Xfdata(self):
+        #return f"{self.data.strftime('%d/%m/%Y')}"
+    #def Xfhora_inicio(self):
+        #return f'{self.hora_inicio.strftime("%H:%M")}'
+    #def Xfhora_fim(self):
+        #return f'{self.hora_fim.strftime("%H:%M")}'
 
 

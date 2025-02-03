@@ -8,6 +8,7 @@ django-crispy-forms==2.3
 pillow==11.0.0
 pydantic==2.10.4
 pydantic_core==2.27.2
+python-dotenv==1.0.1
 reportlab==4.2.5
 sqlparse==0.5.2
 typing_extensions==4.12.2

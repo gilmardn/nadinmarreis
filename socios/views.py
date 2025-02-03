@@ -5,133 +5,113 @@ from .forms import SocioForm, DependenteForm, MensalidadeForm, SocioFormEdit, De
 from django.views.generic import  UpdateView, DeleteView # ListView, CreateView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.utils.decorators import method_decorator
+from utils.decorators import permissoes_requeridas
+from django.contrib.auth.decorators import login_required
 
 from django.conf import settings
-LINHAS_POR_PAGINA = settings.LINHAS_POR_PAGINA
+LINHAS_POR_PAGINA = int(settings.LINHAS_POR_PAGINA)
 
-#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'livre'] 
+#==============================================================
+#@login_required
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+#@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social', 'esportivo', 'basico'])
+def home(request):
+    return render(request, 'socios/home.html')
+
 #====================================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social', 'esportivo', 'basico'])
 def lista_mensalidades(request):
-
     query = request.GET.get('q') 
-    #socios = Socio.objects.prefetch_related('mensalidades').all()  
     socios = Socio.objects.filter(tipo_socio__in=['patrimonial', 'contribuinte']).prefetch_related('mensalidades')
     if query: 
        socios = socios.filter(nome__icontains=query) 
-    paginator = Paginator(socios, LINHAS_POR_PAGINA)  # Display 10 items per page
+    paginator = Paginator(socios, LINHAS_POR_PAGINA - 4)  # Display 10 items per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'socios/lista_mensalidades.html', {'socios':page_obj.object_list, 'page_obj': page_obj})
+
+    context = {
+        'page_obj': page_obj,  # Passa o objeto de paginação
+        'query': query  # Passa a consulta para exibir no template
+    }
+    return render(request, 'socios/lista_mensalidades.html', context)
 
 #====================================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@method_decorator(permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social']), name='dispatch')
 class MensalidadeUpdateView(UpdateView):
     model = Mensalidade
     form_class = MensalidadeForm
     template_name = 'socios/mensalidade_form.html'
     success_url = reverse_lazy('gestao_mensalidades')
-    #####  ROTINA DE PERMISSOES  #######
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Você não está logado.")
-            return redirect('home')  
-        niveis_permitidos = ['admin', 'financeiro', 'social']
-        if not hasattr(request.user, 'nivel_acesso') or request.user.nivel_acesso not in niveis_permitidos:
-            messages.warning(request, "Você não tem permissão para acessar esta página.")
-            return redirect('home') 
-        # Se o usuário tiver permissão, continua com a execução normal da view
-        return super().dispatch(request, *args, **kwargs)
-    #########################################
+    
+    def form_valid(self, form):  #####  MENSAGEM DE SUCESSO AO SALVAR #####
+        response = super().form_valid(form)
+        messages.success(self.request, "Mensalidades atualizadas com sucesso!")
+        return response
+
+    def form_invalid(self, form):  #####  MENSAGEM DE ERRO SE O FORMULÁRIO FOR INVÁLIDO #####
+        messages.error(self.request, "Erro ao atualizar mensalidades.")
+        return super().form_invalid(form)
+   
 #====================================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@method_decorator(permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social']), name='dispatch')
 class MensalidadeDeleteView(DeleteView):
     model = Mensalidade
     template_name = 'socios/mensalidade_confirm_delete.html'
     success_url = reverse_lazy('gestao_mensalidades')
-    #####  ROTINA DE PERMISSOES  #######
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Você não está logado.")
-            return redirect('home')  
-        niveis_permitidos = ['admin'] 
-        if not hasattr(request.user, 'nivel_acesso') or request.user.nivel_acesso not in niveis_permitidos:
-            messages.warning(request, "Você não tem permissão para acessar esta página.")
-            return redirect('home') 
-        # Se o usuário tiver permissão, continua com a execução normal da view
-        return super().dispatch(request, *args, **kwargs)
-    #########################################
 
 #==============================================================
-def home(request):
-    return render(request, 'socios/home.html')
-
-#==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+#@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social', 'esportivo', 'basico'])
 def sobre(request):
     return render(request, 'socios/sobre.html')
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def gerenciamento(request):
     query = request.GET.get('q') 
-    active_tab = request.GET.get('activeTab', 'tab1')  # Valor padrão é 'tab1'
+    query1 = request.GET.get('q1') 
+    query2 = request.GET.get('q2') 
     socios = Socio.objects.all()
-    if query: 
-        socios = Socio.objects.filter(nome__icontains=query) 
-
-    paginator = Paginator(socios, LINHAS_POR_PAGINA)  # Display 10 items per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
     dependentes = Dependente.objects.all()
     mensalidades = Mensalidade.objects.all()
-    context = {'socios':page_obj.object_list ,  'dependentes': dependentes, 'mensalidades': mensalidades, 'page_obj': page_obj}
+   
+    if query: 
+        socios = Socio.objects.filter(nome__icontains=query) 
+        
+    if query1: 
+        dependentes = Dependente.objects.filter(nome__icontains=query1) 
+       
+    if query2: 
+        mensalidades = Mensalidade.objects.filter(socio__nome__icontains=query2) 
+       
 
-    if request.method == 'POST':
-        if active_tab == 'tab1':  
-            socios = Socio.objects.all()
-            if query: 
-                socios = Socio.objects.filter(nome__icontains=query) 
-
-            paginator = Paginator(socios, LINHAS_POR_PAGINA)  # Display 10 items per page
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            dependentes = Dependente.objects.all()
-            mensalidades = Mensalidade.objects.all()
-            context = {'socios':page_obj.object_list ,  'dependentes': dependentes, 'mensalidades': mensalidades, 'page_obj': page_obj}
-
-        elif active_tab == 'tab2':
-            dependentes = Dependente.objects.all()
-            paginator = Paginator(dependentes, LINHAS_POR_PAGINA)  # Display 10 items per page
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            socios = Socio.objects.all()
-            mensalidades = Mensalidade.objects.all()
-            context = {'socios': socios ,  'dependentes': page_obj.object_list, 'mensalidades': mensalidades, 'page_obj': page_obj}
-
-        elif active_tab == 'tab3':
-            mensalidades = Mensalidade.objects.all()
-            paginator = Paginator(mensalidades, LINHAS_POR_PAGINA)  # Display 10 items per page
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            socios = Socio.objects.all()
-            dependentes = Dependente.objects.all()
-            context = {'socios':socios,  'dependentes': dependentes, 'mensalidades': page_obj.object_list, 'page_obj': page_obj}
-
-    return render(request, 'socios/gerenciamento.html',context)
+    context = {'query':query, 'query1':query1, 'query2':query2, 'socios':socios ,  'dependentes': dependentes, 'mensalidades': mensalidades}
+    return render(request, 'socios/gerenciamento.html', context)
 
 #====================================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def gestao_socios(request):
     query = request.GET.get('q') 
-    #socios = Socio.objects.all()  # Retorna so os ativos = True
     socios = Socio._base_manager.all() # Retorna todo ativos e inativos = True e False
     if query: 
         socios = socios.filter(nome__icontains=query) 
 
     paginator = Paginator(socios, LINHAS_POR_PAGINA)  # Display 10 items per page
     page_number = request.GET.get('page')
-
     page_obj = paginator.get_page(page_number)
     context = {'socios':page_obj.object_list, 'page_obj': page_obj}
     
-    return render(request, 'socios/gestao_socios.html',context)
+    return render(request, 'socios/gestao_socios.html', context)
 
 #====================================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def gestao_dependentes(request):
     query = request.GET.get('q') 
     dependentes = Dependente.objects.all()
@@ -146,20 +126,27 @@ def gestao_dependentes(request):
     return render(request, 'socios/gestao_dependentes.html', context)
 
 #====================================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def gestao_mensalidades(request):
     query = request.GET.get('q') 
-    mensalidades = Mensalidade.objects.all()
+    mensalidades = Mensalidade.objects.all().select_related('socio')  # Otimiza consultas ao banco de dados
     if query: 
         mensalidades = mensalidades.filter(socio__nome__icontains=query)
 
     paginator = Paginator(mensalidades, LINHAS_POR_PAGINA - 4)  # Display 10 items per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'mensalidades':page_obj.object_list, 'page_obj': page_obj}
+    context = {
+        'page_obj': page_obj,  # Passa o objeto de paginação
+        'query': query  # Passa a consulta para exibir no template
+    }
     
     return render(request, 'socios/gestao_mensalidades.html', context)
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social', 'esportivo', 'basico'])
 def busca_socio(request): 
     query = request.GET.get('q') 
     if query: 
@@ -169,34 +156,34 @@ def busca_socio(request):
     return render(request, 'socios/gerenciamento.html', {'socios': socios})
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social', 'esportivo', 'basico'])
 def lista_socio_dependentes(request):
     query = request.GET.get('q') 
     socios = Socio.objects.prefetch_related('dependentes').all()  # Agora usa 'dependentes'
     if query: 
         socios = socios.filter(nome__icontains=query) 
+
     paginator = Paginator(socios, LINHAS_POR_PAGINA)  # Display 10 items per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'socios':page_obj.object_list, 'page_obj': page_obj}
+    context = {
+        'page_obj': page_obj,  # Passa o objeto de paginação
+        'query': query } # Passa a consulta para exibir no template
     return render(request, 'socios/lista_socio_dependentes.html',context)
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social', 'esportivo', 'basico'])
 def lista_socios(request):
     socios = Socio.objects.all()
     return render(request, 'socios/lista_socios.html', {'socios': socios})
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def cria_socio(request):
-    ### ROTINA DE PERMISSOES  ###
-    if not request.user.is_authenticated:
-        messages.error(request, "Você não está logado.")
-        return redirect('home')  
-    niveis_permitidos = ['admin', 'financeiro', 'social'] 
-    if not hasattr(request.user, 'nivel_acesso') or request.user.nivel_acesso not in niveis_permitidos:
-        messages.warning(request, "Você não tem permissão para acessar esta página.")
-        return redirect('home') 
-    ###############################
-
+  
     if request.method == 'POST':
         form = SocioForm(request.POST, request.FILES)
         if form.is_valid():
@@ -210,16 +197,10 @@ def cria_socio(request):
     return render(request, 'socios/cria_socio.html', {'form': form})
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico']
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def edita_socio(request, pk):
-    ### ROTINA DE PERMISSOES  ###
-    if not request.user.is_authenticated:
-        messages.error(request, "Você não está logado.")
-        return redirect('home')  
-    niveis_permitidos = ['admin', 'financeiro', 'social'] 
-    if not hasattr(request.user, 'nivel_acesso') or request.user.nivel_acesso not in niveis_permitidos:
-        messages.warning(request, "Você não tem permissão para acessar esta página.")
-        return redirect('home') 
-    ###############################
+   
     #socios = Socio.objects.all()  # Retorna so os ativos = True
     socios = Socio._base_manager.all() # Retorna todo ativos e inativos = True e False
     socio = get_object_or_404(socios, pk=pk)
@@ -237,16 +218,10 @@ def edita_socio(request, pk):
     return render(request, 'socios/edita_socio.html', {'form': form, 'socio': socio})
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico']
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def exclui_socio(request, pk):
-    ### ROTINA DE PERMISSOES  ###
-    if not request.user.is_authenticated:
-        messages.error(request, "Você não está logado.")
-        return redirect('home')  
-    niveis_permitidos = ['admin', 'financeiro', 'social'] 
-    if not hasattr(request.user, 'nivel_acesso') or request.user.nivel_acesso not in niveis_permitidos:
-        messages.warning(request, "Você não tem permissão para acessar esta página.")
-        return redirect('home') 
-    ###############################
+ 
     socio = get_object_or_404(Socio, pk=pk)
     if request.method == 'POST':
         socio.delete()
@@ -254,65 +229,49 @@ def exclui_socio(request, pk):
     return render(request, 'socios/exclui_socio.html', {'socio': socio})
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico']
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social', 'esportivo', 'basico'])
 def lista_dependentes(request, socio_id):
     socio = get_object_or_404(Socio, pk=socio_id)
     dependentes = socio.dependentes.all()
     return render(request, 'socios/lista_dependentes.html', {'socio': socio, 'dependentes': dependentes})
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico']
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def cria_dependente(request):
-    ### ROTINA DE PERMISSOES  ###
-    if not request.user.is_authenticated:
-        messages.error(request, "Você não está logado.")
-        return redirect('home')  
-        #niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'livre'] 
-    niveis_permitidos = ['admin', 'financeiro', 'social']
-    if not hasattr(request.user, 'nivel_acesso') or request.user.nivel_acesso not in niveis_permitidos:
-        messages.warning(request, "Você não tem permissão para acessar esta página.")
-        return redirect('home') 
-    ###############################
+ 
     if request.method == 'POST':
         form = DependenteForm(request.POST, request.FILES)  # Preenche o formulário com os dados enviados
         if form.is_valid():
             dependente = form.save(commit=False)
             dependente.save()
+            messages.success(request, 'Dependente Incluido com sucesso.')
             return redirect('gestao_dependentes')  # Redireciona para a lista de dependentes
     else:
         form = DependenteForm()  # Cria um formulário vazio
     return render(request, 'socios/cria_dependente.html', {'form': form})
 
 #==============================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico']
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def edita_dependente(request, dependente_id):
-    ### ROTINA DE PERMISSOES  ###
-    if not request.user.is_authenticated:
-        messages.error(request, "Você não está logado.")
-        return redirect('home')  
-    niveis_permitidos = ['admin', 'financeiro', 'social']
-    if not hasattr(request.user, 'nivel_acesso') or request.user.nivel_acesso not in niveis_permitidos:
-        messages.warning(request, "Você não tem permissão para acessar esta página.")
-        return redirect('home') 
-    ###############################
+ 
     dependente = get_object_or_404(Dependente, pk=dependente_id)  # Obtém o dependente pelo ID
     if request.method == 'POST':
         form = DependenteFormEdit(request.POST, request.FILES, instance=dependente)  # Preenche o formulário com os dados enviados
         if form.is_valid():
             form.save()  # Salva as alterações no banco de dados
+            messages.success(request, 'dependente alterado com sucesso.')
             return redirect('gestao_dependentes')  # Redireciona para a lista de dependentes do sócio
     else:
         form = DependenteFormEdit(instance=dependente)  # Preenche o formulário com os dados atuais do dependente
     return render(request, 'socios/edita_dependente.html', {'form': form, 'dependente': dependente})
 
 #======================================================================================================================
+#niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico']
+@permissoes_requeridas(niveis_permitidos=['admin', 'financeiro', 'social'])
 def exclui_dependente(request, dependente_id):
-    ### ROTINA DE PERMISSOES  ###
-    niveis_permitidos = ['admin', 'financeiro', 'social']
-    if not request.user.is_authenticated:
-        messages.error(request, "Você não está logado.")
-        return redirect('home')  
-    if not hasattr(request.user, 'nivel_acesso') or request.user.nivel_acesso not in niveis_permitidos:
-        messages.warning(request, "Você não tem permissão para acessar esta página.")
-        return redirect('home') 
-    ###############################
 
     dependente = get_object_or_404(Dependente, pk=dependente_id) 
     if request.method == 'POST':

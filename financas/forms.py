@@ -1,4 +1,6 @@
 from django import forms
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 from .models import Quadra, Horario, Caixa, Parceiro
 from django.forms.widgets import DateInput, TimeInput
 
@@ -35,9 +37,15 @@ class HorarioForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control'
                 field.widget.attrs['autocomplete'] = 'off'
 
+    def clean_data(self):
+        data = self.cleaned_data.get('data')
+        if data and data < timezone.now().date():
+            raise ValidationError("A data inferior à data atual.")
+        return data
+
 #---------------------------------------------------------------------------------------
 class HorarioFormEdit(forms.ModelForm):
-    #data = forms.DateField(widget=DatePickerInput)
+    data = forms.DateField(widget=DatePickerInput)
     hora_inicio = forms.TimeField(widget=TimePickerInput())
     hora_fim = forms.TimeField(widget=TimePickerInput())
     class Meta:
@@ -53,6 +61,12 @@ class HorarioFormEdit(forms.ModelForm):
             else:
                 field.widget.attrs['class'] = 'form-control'
                 field.widget.attrs['autocomplete'] = 'off'
+
+    def clean_data(self):
+        data = self.cleaned_data.get('data')
+        if data and data < timezone.now().date():
+            raise ValidationError("A data inferior à data atual.")
+        return data
 
 #---------------------------------------------------------------------------------------
 class CaixaForm(forms.ModelForm):
@@ -76,6 +90,18 @@ class CaixaForm(forms.ModelForm):
             for field in self.fields:
                 self.fields[field].disabled = True
 
+    def clean_valor(self):
+        valor = self.cleaned_data.get('valor')
+        if valor is not None and valor < 1:
+            raise ValidationError("O valor menor que um.")
+        return valor
+
+    def clean_data(self):
+        data = self.cleaned_data.get('data')
+        if data and data > timezone.now().date():
+            raise ValidationError("A data superior à data atual.")
+        return data
+
 #---------------------------------------------------------------------------------------
 class CaixaFormEdit(forms.ModelForm):
    #data = forms.DateField(widget=DatePickerInput)
@@ -96,6 +122,19 @@ class CaixaFormEdit(forms.ModelForm):
         if self.instance and self.instance.consolidado:
             for field in self.fields:
                 self.fields[field].disabled = True
+
+    
+    def clean_valor(self):
+        valor = self.cleaned_data.get('valor')
+        if valor is not None and valor < 1:
+            raise ValidationError("O valor menor que um.")
+        return valor
+
+    def clean_data(self):
+        data = self.cleaned_data.get('data')
+        if data and data > timezone.now().date():
+            raise ValidationError("A data superior à data atual.")
+        return data
 
 #---------------------------------------------------------------------------------------
 class ParceiroForm(forms.ModelForm):
