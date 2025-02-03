@@ -8,10 +8,11 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 from utils.decorators import permissoes_requeridas
 from django.contrib.auth.decorators import login_required
-
 from django.conf import settings
-LINHAS_POR_PAGINA = int(settings.LINHAS_POR_PAGINA)
 
+LINHAS_POR_PAGINA = int(settings.LINHAS_POR_PAGINA)
+if LINHAS_POR_PAGINA is None:
+    LINHAS_POR_PAGINA = 14  # ou outro valor padrão
 #==============================================================
 #@login_required
 #niveis_permitidos = ['admin', 'financeiro', 'social', 'esportivo', 'basico'] 
